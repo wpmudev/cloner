@@ -1,0 +1,4 @@
+[submodule "copier"]
+	path = copier
+	url = git@bitbucket.org:incsub/content-copier-stub.git
+	branch = master
