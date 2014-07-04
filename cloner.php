@@ -38,7 +38,6 @@ class WPMUDEV_Cloner {
 
 		add_filter( 'manage_sites_action_links', array( &$this, 'add_site_action_link' ), 10, 2 );
 		add_action( 'network_admin_menu', array( &$this, 'add_admin_menu' ) );
-		
 	}
 
 
