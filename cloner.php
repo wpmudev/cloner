@@ -41,6 +41,7 @@ class WPMUDEV_Cloner {
 		
 	}
 
+
 	private function set_constants() {
 		define( 'WPMUDEV_CLONER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 	}
