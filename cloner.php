@@ -2,16 +2,16 @@
 /*
 Plugin Name: Cloner
 Plugin URI: 
-Description: 
-Author: WPMU DEV
+Description: Clone sites in a network installation
+Author: WPMUDEV
 Author URI: http://premium.wpmudev.org/
 Version: 1.0
 Network: true
-Text Domain: blog_templates
+Text Domain: wpmudev-cloner
 Domain Path: lang
 */
 
-/*  Copyright 2010-2011 Incsub (http://incsub.com)
+/*  Copyright 2010-2014 Incsub (http://incsub.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
