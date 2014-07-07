@@ -217,7 +217,7 @@ class WPMUDEV_Cloner {
 				$path = '';
 			}
 			else {
-				$path = '/' . $domain;
+				$path = $current_site->path . $domain . '/'; //$path = '/' . $domain; // Do NOT assume the root to be server root
 				$domain = $current_site->domain;
 			}
 
