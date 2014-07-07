@@ -38,6 +38,8 @@ class WPMUDEV_Cloner {
 
 		add_filter( 'manage_sites_action_links', array( &$this, 'add_site_action_link' ), 10, 2 );
 		add_action( 'network_admin_menu', array( &$this, 'add_admin_menu' ) );
+
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 	}
 
 
@@ -48,6 +50,16 @@ class WPMUDEV_Cloner {
 	private function includes() {
 		include_once( WPMUDEV_CLONER_PLUGIN_DIR . '/copier/copier.php' );
 	}
+
+	public function load_plugin_textdomain() {
+		$domain = 'wpmudev-cloner';
+		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
+
+		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
+		load_plugin_textdomain( $domain, FALSE, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/lang/' );
+
+	}
+
 
 	/**
 	 * Add a new action link in the Network Sites Page that clones a site
