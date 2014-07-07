@@ -1,5 +1,10 @@
 Plugin Name: Cloner
 Author: WPMU DEV
+Tags: multisite plugin, wordpress plugin, wordpress multisite, multisite, new blogs and users
+Requires at least: 3.8
+Tested up to: 3.9.1
+Stable tag: 1.0
+
 
 Change Log:
 ----------------------------------------------------------------------
