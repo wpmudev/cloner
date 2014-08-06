@@ -247,6 +247,4 @@ class WPMUDEV_Cloner {
         return $new_blog_id;
     }
 
-    $nbt_cloner = new WPMUDEV_Cloner();
-    
 }
