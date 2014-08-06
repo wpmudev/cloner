@@ -40,5 +40,3 @@ if ( ! defined( 'WPMUDEV_CLONER_PLUGIN_DIR' ) )
 	define( 'WPMUDEV_CLONER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 include_once( 'includes/cloner.php' );
-
-$nbt_cloner = new WPMUDEV_Cloner();
