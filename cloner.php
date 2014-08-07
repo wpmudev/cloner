@@ -50,7 +50,16 @@ class WPMUDEV_Cloner {
 		add_action( 'network_admin_menu', array( &$this, 'add_admin_menu' ) );
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+
+		add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ) );
+
+		if ( is_network_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+			require_once( WPMUDEV_CLONER_PLUGIN_DIR . 'admin/cloner-admin.php' );
+			add_action( 'plugins_loaded', array( 'WPMUDEV_Cloner_Admin', 'get_instance' ) );
+		}
 	}
+
+	
 
 	private function set_constants() {
 		if ( ! defined( 'WPMUDEV_CLONER_PLUGIN_DIR' ) )
@@ -66,6 +75,7 @@ class WPMUDEV_Cloner {
 
 	private function includes() {
 		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'copier/copier.php' );
+		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'helpers/settings.php' );
 
 		//load dashboard notice
 		global $wpmudev_notices;
@@ -80,6 +90,24 @@ class WPMUDEV_Cloner {
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $domain, false, basename( WPMUDEV_CLONER_PLUGIN_DIR ) . '/lang/' );
 
+	}
+
+	/**
+	 * Remove arguments from copier based on Cloner Settings
+	 * 
+	 * @param type $args 
+	 * @return type
+	 */
+	public function set_copier_args( $args ) {
+		$settings = wpmudev_cloner_get_settings();
+
+		$to_copy = $args['to_copy'];
+		foreach ( $to_copy as $to_copy_option => $value ) {
+			if ( ! in_array( $to_copy_option, $settings['to_copy'] ) )
+				unset( $args['to_copy'][ $to_copy_option ] );
+		}
+
+		return $args;
 	}
 
 
@@ -293,6 +321,8 @@ class WPMUDEV_Cloner {
 
         return $new_blog_id;
     }
+
+     
 
 }
 
