@@ -3,7 +3,7 @@
 /**
  * Based on Tom McFarlin's Plugin Boilerplate https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate
  */
-class WPMUDEV_Cloner_Admin {
+class WPMUDEV_Cloner_Admin_Settings {
 
 	/**
 	 * Instance of this class.
@@ -43,6 +43,9 @@ class WPMUDEV_Cloner_Admin {
 		$plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . $this->plugin_slug . '.php' );
 		add_filter( 'network_admin_plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
+		if ( ! defined( 'WPMUDEV_CLONER_ASSETS_URL' ) )
+			define( 'WPMUDEV_CLONER_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets' );
+
 	}
 
 	/**
@@ -77,7 +80,7 @@ class WPMUDEV_Cloner_Admin {
 			'settings.php',
 			__( 'Cloner Settings', WPMUDEV_CLONER_LANG_DOMAIN ),
 			__( 'Cloner', WPMUDEV_CLONER_LANG_DOMAIN ),
-			'manage_options',
+			'manage_network',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
 		);

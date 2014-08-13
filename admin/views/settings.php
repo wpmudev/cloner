@@ -12,25 +12,65 @@
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
-	<form method="post" action="">
-		<h3>What to copy</h3>
-		<p>Please, select those options that you don't want to clone.</p>
-		<table class="form-table">
-			<tr valign="top">
-				<th scope="row"><label>What to copy</label></th>
-				<td>
-					<?php foreach ( $to_copy_labels as $slug => $label ): ?>
-						<label for="copy_<?php echo $slug; ?>">
-							<input type="checkbox" id="copy_<?php echo $slug; ?>" name="to_copy[<?php echo esc_attr( $slug ); ?>]" <?php checked( in_array( $slug, $to_copy ) ); ?> />
-							<?php echo $label; ?>
-						</label><br/>
-					<?php endforeach; ?>
-				</td>
-			</tr>
-		</table>
+	<form method="post" id="cloner-settings-form" action="">
+		<h3><?php _e( 'Getting started:', WPMUDEV_CLONER_LANG_DOMAIN ); ?></h3>
+		<div class="cloner-settings-image-wrap">
+			<img src="<?php echo WPMUDEV_CLONER_ASSETS_URL . '/images/step_1.jpg'; ?>">
+			<p class="description"><?php printf( __( 'Navigate to <a href="%s">Network Admin &raquo; Sites</a>', WPMUDEV_CLONER_LANG_DOMAIN ), network_admin_url( 'sites.php' ) ); ?></p>
+		</div>
+		<div class="cloner-settings-image-wrap">
+			<img src="<?php echo WPMUDEV_CLONER_ASSETS_URL . '/images/step_2.jpg'; ?>">
+			<p class="description"><?php _e( 'Hover over any site & click \'Clone\'', WPMUDEV_CLONER_LANG_DOMAIN ); ?></p>
+		</div>
+		<div class="clear"></div>
+		
+		<h3><?php _e( 'Select content you want to be copied:', WPMUDEV_CLONER_LANG_DOMAIN ); ?></h3>
+		<ul id="cloner-content-list">
+			<?php $item_no = 1; ?>
+			<?php foreach ( $to_copy_labels as $slug => $label ): ?>
+				<li>
+					<label for="copy_<?php echo $slug; ?>">
+						<input type="checkbox" id="copy_<?php echo $slug; ?>" name="to_copy[<?php echo esc_attr( $slug ); ?>]" <?php checked( in_array( $slug, $to_copy ) ); ?> />
+						<?php echo $label; ?>
+					</label>
+				</li>
+				<?php if ( ( $item_no % 3 ) == 0 ): ?>
+					<div class="clear"></div>
+				<?php endif; ?>
+
+				<?php $item_no++; ?>
+
+			<?php endforeach; ?>
+		</ul>
+		<div class="clear"></div>
 
 		<?php wp_nonce_field( 'wpmudev_cloner_settings' ); ?>
 		<?php submit_button(); ?>
 	</form>
+
+	<style>
+		#cloner-content-list li {
+			display:block;
+			float:left;
+			width:25%;
+			list-style: none;
+			font-size: 14px;
+			font-weight: bold
+		}
+
+		#cloner-settings-form img {
+			max-width:100%;
+		}
+
+		#cloner-settings-form .description {
+			font-size:14px;
+			font-style: normal;
+		}
+
+		.cloner-settings-image-wrap {
+			float:left;
+			margin-right:50px;
+		}
+	</style>
 
 </div>
