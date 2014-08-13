@@ -44,7 +44,7 @@ function cloner_autocomplete_site() {
 			$path = $details->domain;
 		}
 		else {
-			$path = $details->path;
+			$path = str_replace( '/', '', $details->path );
 		}
 
 		$return[] = array(
