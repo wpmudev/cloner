@@ -44,7 +44,11 @@ function cloner_autocomplete_site() {
 			$path = $details->domain;
 		}
 		else {
+<<<<<<< HEAD
 			$path = trim( $details->path, '/' );
+=======
+			$path = str_replace( '/', '', $details->path );
+>>>>>>> ecfdaa73c2dcf4d313341b57b7a8083ad045cc70
 		}
 
 		$return[] = array(
