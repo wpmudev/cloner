@@ -27,7 +27,7 @@ function cloner_autocomplete_site() {
 		$blog_s .= '%.' . $current_site->domain;
 		$query .= " AND ( {$wpdb->blogs}.domain LIKE '$blog_s' ) ";
 	} else {
-		if ( $like_s != trim('/', $current_site->path) )
+		if ( $like_s != trim( '/', $current_site->path ) )
 			$blog_s = $current_site->path . $like_s . '%/';
 		else
 			$blog_s = $like_s;
@@ -44,7 +44,7 @@ function cloner_autocomplete_site() {
 			$path = $details->domain;
 		}
 		else {
-			$path = $details->path;
+			$path = trim( $details->path, '/' );
 		}
 
 		$return[] = array(

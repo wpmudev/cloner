@@ -47,6 +47,9 @@ class WPMUDEV_Cloner {
 		$this->includes();
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'init_plugin' ) );
+
+		add_action( 'network_admin_notices', array( $this, 'display_installation_admin_notice' ) );
 
 		add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ) );
 
@@ -58,9 +61,8 @@ class WPMUDEV_Cloner {
 			add_action( 'plugins_loaded', array( 'WPMUDEV_Cloner_Admin_Clone_Site', 'get_instance' ) );
 		}
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
 			require_once( WPMUDEV_CLONER_PLUGIN_DIR . 'admin/ajax.php' );
-		}
 
 	}
 
@@ -76,6 +78,9 @@ class WPMUDEV_Cloner {
 		 //Define the same language domain for the copier classes.
 		if ( ! defined( 'WPMUDEV_COPIER_LANG_DOMAIN' ) )
 			define( 'WPMUDEV_COPIER_LANG_DOMAIN', 'wpmudev-cloner' );
+
+		if ( ! defined( 'WPMUDEV_CLONER_VERSION' ) )
+			define( 'WPMUDEV_CLONER_VERSION', '1.0' );
 	}
 
 	private function includes() {
@@ -95,6 +100,25 @@ class WPMUDEV_Cloner {
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $domain, false, basename( WPMUDEV_CLONER_PLUGIN_DIR ) . '/lang/' );
 	}
+
+	public function init_plugin() {
+		if ( is_network_admin() && isset( $_GET['cloner_dismiss_install_notice'] ) )
+			update_site_option( 'wpmudev_cloner_installation_notice_done', true );
+	}
+
+	public function display_installation_admin_notice() {
+		if ( is_super_admin() && ! get_site_option( 'wpmudev_cloner_installation_notice_done' ) ) {
+			$dismiss_url = add_query_arg( 'cloner_dismiss_install_notice', 'true' );
+			?>
+				<div class="updated">
+					<p class="alignleft"><?php printf( __( 'Cloner has been successfully installed, it can be configured from <a href="%s">Settings &raquo; Cloner</a>', WPMUDEV_CLONER_LANG_DOMAIN ), network_admin_url( 'settings.php?page=cloner' ) ); ?></p>
+					<p class="alignright"><a href="<?php echo esc_url( $dismiss_url ); ?>" class="button-secondary"><?php _e( 'Dismiss', WPMUDEV_CLONER_LANG_DOMAIN ); ?></a></p>
+					<div class="clear"></div>
+				</div>
+			<?php
+		}
+	}
+
 
 	/**
 	 * Remove arguments from copier based on Cloner Settings
