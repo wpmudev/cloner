@@ -31,12 +31,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-/**
- * We need to put the main file in a separate folder as this plugin contains two different
- * language files: One for the Cloner plugin itself and another for the Copier classes
- */
-
-
 
 class WPMUDEV_Cloner {
 
