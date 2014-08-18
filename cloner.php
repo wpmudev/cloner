@@ -5,7 +5,7 @@ Plugin URI: https://premium.wpmudev.org/project/cloner
 Description: Clone sites in a network installation
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
-Version: 1.0
+Version: 1.1
 Network: true
 Text Domain: wpmudev-cloner
 Domain Path: lang
@@ -74,7 +74,7 @@ class WPMUDEV_Cloner {
 			define( 'WPMUDEV_COPIER_LANG_DOMAIN', 'wpmudev-cloner' );
 
 		if ( ! defined( 'WPMUDEV_CLONER_VERSION' ) )
-			define( 'WPMUDEV_CLONER_VERSION', '1.0' );
+			define( 'WPMUDEV_CLONER_VERSION', '1.1' );
 	}
 
 	private function includes() {
@@ -83,7 +83,7 @@ class WPMUDEV_Cloner {
 
 		//load dashboard notice
 		global $wpmudev_notices;
-		$wpmudev_notices[] = array( 'id'=> 910773, 'name'=> 'Cloner', 'screens' => array( 'admin_page_clone_site-network' ) );
+		$wpmudev_notices[] = array( 'id'=> 910773, 'name'=> 'Cloner', 'screens' => array( 'admin_page_clone_site-network', 'settings_page_cloner-network' ) );
 		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'externals/wpmudev-dash-notification.php' );
 	}
 

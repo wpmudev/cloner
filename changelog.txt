@@ -3,13 +3,17 @@ Author: WPMU DEV
 Tags: multisite plugin, wordpress plugin, wordpress multisite, multisite, new blogs and users
 Requires at least: 3.8
 Tested up to: 3.9.1
-Stable tag: 1.0
+Stable tag: 1.1
 
 
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
-1.0 2014-08-14
+1.1 - 2014-08-18
+----------------------------------------------------------------------
+- Added BuddyPress integration
+
+1.0 - 2014-08-14
 ----------------------------------------------------------------------
 - First release
