@@ -46,6 +46,7 @@ class WPMUDEV_Cloner {
 		add_action( 'network_admin_notices', array( $this, 'display_installation_admin_notice' ) );
 
 		add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ) );
+		add_filter( 'blog_templates-copy-options', array( $this, 'add_blogname_suffix' ) );
 
 		if ( is_network_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 			require_once( WPMUDEV_CLONER_PLUGIN_DIR . 'admin/cloner-admin-settings.php' );
@@ -130,7 +131,18 @@ class WPMUDEV_Cloner {
 		}
 
 		return $args;
-	}     
+	}
+
+	/**
+	 * Add "(copy)" string to the cloned blogname
+	 * 
+	 */
+	public function add_blogname_suffix() {
+		$blogname = get_option( 'blogname' );
+		$blogname = str_replace( __( ' (copy)', WPMUDEV_CLONER_LANG_DOMAIN ), '', $blogname );
+        $blogname .= __( ' (copy)', WPMUDEV_CLONER_LANG_DOMAIN );
+        update_option( 'blogname', $blogname );
+	}
 
 }
 
