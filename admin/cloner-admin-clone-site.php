@@ -192,6 +192,20 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 			case 'replace': {
 				$destination_blog_id = isset( $_REQUEST['blog_replace'] ) ? absint( $_REQUEST['blog_replace'] ) : false;
 
+				if ( ! $destination_blog_id ) {
+					// try to check the blog name
+					$blog_name = isset( $_REQUEST['blog_replace_autocomplete'] ) ? $_REQUEST['blog_replace_autocomplete'] : '';
+					$destination_blog_details = get_blog_details( $blog_name );
+
+					if ( empty( $destination_blog_details ) || $destination_blog_details->blog_id == 1 ) {
+						$destination_blog_id = false;
+					}
+					else {
+						$destination_blog_id = $destination_blog_details->blog_id;
+					}
+					
+				}
+
 				if ( ! $destination_blog_id )
 					wp_die( __( 'The site you are trying to replace does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
 
