@@ -42,6 +42,7 @@ class WPMUDEV_Cloner {
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'init', array( $this, 'init_plugin' ) );
+		add_action( 'init', array( $this, 'maybe_upgrade' ) );
 
 		add_action( 'network_admin_notices', array( $this, 'display_installation_admin_notice' ) );
 
@@ -75,7 +76,7 @@ class WPMUDEV_Cloner {
 			define( 'WPMUDEV_COPIER_LANG_DOMAIN', 'wpmudev-cloner' );
 
 		if ( ! defined( 'WPMUDEV_CLONER_VERSION' ) )
-			define( 'WPMUDEV_CLONER_VERSION', '1.1' );
+			define( 'WPMUDEV_CLONER_VERSION', '1.2' );
 	}
 
 	private function includes() {
@@ -142,6 +143,21 @@ class WPMUDEV_Cloner {
 		$blogname = str_replace( __( ' (copy)', WPMUDEV_CLONER_LANG_DOMAIN ), '', $blogname );
         $blogname .= __( ' (copy)', WPMUDEV_CLONER_LANG_DOMAIN );
         update_option( 'blogname', $blogname );
+	}
+
+	public function maybe_upgrade() {
+		$current_version_saved = get_site_option( 'wpmudev_cloner_version', '1.1' );
+
+		if ( $current_version_saved === WPMUDEV_CLONER_VERSION )
+			return;
+
+		if ( version_compare( $current_version_saved, '1.2', '<' ) ) {
+			$settings = wpmudev_cloner_get_settings();
+			$settings['to_copy'][] = 'cpts';
+			wpmudev_cloner_update_settings( $settings );
+		}
+
+		update_site_option( 'wpmudev_cloner_version', WPMUDEV_CLONER_VERSION );
 	}
 
 }
