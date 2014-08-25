@@ -122,17 +122,24 @@ class WPMUDEV_Cloner {
 	 * @param type $args 
 	 * @return type
 	 */
-	public function set_copier_args( $args ) {
-		$settings = wpmudev_cloner_get_settings();
+	public function set_copier_args( $option, $destination_blog_id, $args ) {
 
-		$to_copy = $args['to_copy'];
-		foreach ( $to_copy as $to_copy_option => $value ) {
-			if ( ! in_array( $to_copy_option, $settings['to_copy'] ) )
-				unset( $args['to_copy'][ $to_copy_option ] );
+		if ( ! empty( $args ) ) {
+			// We don't want to mess with New Blog Templates
+			return $option;
 		}
 
-		return $args;
-	}
+		$settings = wpmudev_cloner_get_settings();
+
+		$to_copy = $option['to_copy'];
+		foreach ( $to_copy as $to_copy_option => $value ) {
+			if ( ! in_array( $to_copy_option, $settings['to_copy'] ) )
+				unset( $option['to_copy'][ $to_copy_option ] );
+		}
+
+		return $option;
+	}  
+	
 
 	/**
 	 * Add "(copy)" string to the cloned blogname
