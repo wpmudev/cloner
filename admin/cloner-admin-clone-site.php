@@ -78,8 +78,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 	public function add_site_action_link( $links, $blog_id ) {
 		$clone_url = add_query_arg( 'blog_id', $blog_id, network_admin_url( 'index.php?page=clone_site' ) );
 
-		if ( ! is_main_site( $blog_id ) && $blog_id !== 1 )
-			$links['clone'] = '<span class="clone"><a href="' . $clone_url . '">' . __( 'Clone', WPMUDEV_CLONER_LANG_DOMAIN ) . '</a></span>';
+		$links['clone'] = '<span class="clone"><a href="' . $clone_url . '">' . __( 'Clone', WPMUDEV_CLONER_LANG_DOMAIN ) . '</a></span>';
 
 		return $links;
 	}
@@ -158,13 +157,11 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		if ( ! $blog_id || empty( $blog_details ) )
 			wp_die( __( 'The blog that you are trying to copy does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
 
-    	// Do not clone the main site
-        if ( $blog_details->blog_id === 1 || is_main_site( $blog_details->blog_id ) )
-            wp_die( __( 'Sorry, main site cannot be cloned', WPMUDEV_CLONER_LANG_DOMAIN ) );
-
 		$selection = empty( $_REQUEST['cloner-clone-selection'] ) ? false : $_REQUEST['cloner-clone-selection'];
 
 		$args = array();
+
+		$settings = wpmudev_cloner_get_settings();
 
 		switch ( $selection ) {
 			case 'create': {
@@ -186,6 +183,41 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
 				if ( ! empty( $destination_blog_details ) )
 					wp_die( __( 'The blog already exists', WPMUDEV_CLONER_LANG_DOMAIN ) );
+
+				if ( ( is_main_site( $blog_id ) || $blog_id === 1 ) && ! isset( $_REQUEST['confirm'] ) && in_array( 'tables', $settings['to_copy'] ) ) {
+					
+					$additional_tables = copier_get_additional_tables( $blog_id );
+					$additional_tables_previous_selection = get_site_option( 'cloner_main_site_tables_selected', array() );
+
+					if ( ! empty( $additional_tables ) ) {
+						?>
+							<form method="post" action="<?php echo network_admin_url( 'index.php?page=clone_site' ); ?>">
+								<input type="hidden" name="action" value="clone" />
+								<input type="hidden" name="blog_id" value="<?php echo $blog_id; ?>" />
+								<input type="hidden" name="blog_create" value="<?php echo $blog; ?>" />
+								<input type="hidden" name="clone-site-submit" value="true" />
+								<input type="hidden" name="cloner-clone-selection" value="create" />
+
+								<?php wp_nonce_field( 'clone-site-' . $blog_id, '_wpnonce_clone-site' ); ?>
+
+								<p><?php _e( 'You have chosen to clone the main blog. Please, deselect those tables that you think are network-only tables. Copying network tables usually takes up too much space.', WPMUDEV_CLONER_LANG_DOMAIN ); ?></p>
+								<?php foreach ( $additional_tables as $table ): ?>
+		                            <?php
+		                                $table_name = $table['name'];
+		                                $value = $table['prefix.name'];
+		                                $checked = in_array( $value, $additional_tables_previous_selection );
+		                            ?>
+
+		                            <input type='checkbox' name='additional_tables[]' <?php checked( $checked ); ?> id="nbt-<?php echo esc_attr( $value ); ?>" value="<?php echo esc_attr( $value ); ?>">
+		                            <label for="nbt-<?php echo esc_attr( $value ); ?>"><?php echo $table_name; ?></label><br/>
+		                        <?php endforeach; ?>
+
+								<?php submit_button( __( 'Continue', WPMUDEV_CLONER_LANG_DOMAIN ), 'primary', 'confirm' ); ?>
+							</form>
+						<?php
+						wp_die();
+					}
+				}
 
 				break;
 			}
@@ -217,7 +249,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 				if ( empty( $destination_blog_details ) )
 					wp_die( __( 'The site you are trying to replace does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
 
-				// Do not clone the main site
+				// Do not clone over the main site
         		if ( $destination_blog_details->blog_id === 1 || is_main_site( $destination_blog_details->blog_id ) )
             		wp_die( __( 'Sorry, main site cannot be overwritten', WPMUDEV_CLONER_LANG_DOMAIN ) );
 
@@ -235,30 +267,47 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		        if ( ! isset( $_REQUEST['confirm'] ) ) {
 		        	// Display a confirmation screen.
 
-		        	$clone_link = add_query_arg( 
-						array(
-							'action' => 'clone',
-							'blog_replace' => $destination_blog_id,
-							'blog_id' => $blog_id,
-							'confirm' => 'true',
-							'clone-site-submit' => 'true',
-							'cloner-clone-selection' => 'replace'
-						), 
-						network_admin_url( 'index.php?page=clone_site' ) 
-					);
-
-					$clone_link = wp_nonce_url( $clone_link, 'clone-site-' . $blog_id, '_wpnonce_clone-site' );
 					?>
-						<p>
-							<?php 
-								printf( 
-									__( 'You have chosen a URL that already exists. If you choose ‘Continue’, all existing site content and settings on %s will be completely overwritten with content and settings from %s. This change is permanent and can’t be undone, so please be careful. ', WPMUDEV_CLONER_LANG_DOMAIN ), 
-									'<strong>' . get_site_url( $destination_blog_details->blog_id ) . '</strong>', 
-									'<strong>' . get_site_url( $blog_details->blog_id ) . '</strong>' 
-								); 
-							?>
-						</p>
-						<a href="<?php echo $clone_link; ?>" class="button button-primary"><?php _e( 'Continue', WPMUDEV_CLONER_LANG_DOMAIN ); ?></a>
+						<form method="post" action="<?php echo network_admin_url( 'index.php?page=clone_site' ); ?>">
+							<p>
+								<?php 
+									printf( 
+										__( 'You have chosen a URL that already exists. If you choose ‘Continue’, all existing site content and settings on %s will be completely overwritten with content and settings from %s. This change is permanent and can’t be undone, so please be careful. ', WPMUDEV_CLONER_LANG_DOMAIN ), 
+										'<strong>' . get_site_url( $destination_blog_details->blog_id ) . '</strong>', 
+										'<strong>' . get_site_url( $blog_details->blog_id ) . '</strong>' 
+									); 
+								?>
+							</p>
+
+							<input type="hidden" name="action" value="clone" />
+							<input type="hidden" name="blog_replace" value="<?php echo $destination_blog_id; ?>" />
+							<input type="hidden" name="blog_id" value="<?php echo $blog_id; ?>" />
+							<input type="hidden" name="clone-site-submit" value="true" />
+							<input type="hidden" name="cloner-clone-selection" value="replace" />
+							<?php wp_nonce_field( 'clone-site-' . $blog_id, '_wpnonce_clone-site' ); ?>
+
+							<?php if ( ( $blog_id === 1 || is_main_site( $blog_id ) ) && in_array( 'tables', $settings['to_copy'] ) ): ?>
+								
+								<?php $additional_tables = copier_get_additional_tables( $blog_id ); ?>
+
+								<?php $additional_tables_previous_selection = get_site_option( 'cloner_main_site_tables_selected', array() ); ?>
+
+								<p><?php _e( 'You have chosen to clone the main blog. Please, deselect those tables that you think are network-only tables. Copying network tables usually takes up too much space.', WPMUDEV_CLONER_LANG_DOMAIN ); ?></p>
+								<?php foreach ( $additional_tables as $table ): ?>
+		                            <?php
+		                                $table_name = $table['name'];
+		                                $value = $table['prefix.name'];
+		                                $checked = in_array( $value, $additional_tables_previous_selection );
+		                            ?>
+
+		                            <input type='checkbox' name='additional_tables[]' <?php checked( $checked ); ?> id="nbt-<?php echo esc_attr( $value ); ?>" value="<?php echo esc_attr( $value ); ?>">
+		                            <label for="nbt-<?php echo esc_attr( $value ); ?>"><?php echo $table_name; ?></label><br/>
+		                        <?php endforeach; ?>
+							<?php endif; ?>
+
+							<?php submit_button( __( 'Continue', WPMUDEV_CLONER_LANG_DOMAIN ), 'primary', 'confirm' ); ?>
+
+						</form>
 					<?php
 
 					wp_die();
@@ -270,6 +319,11 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 				wp_die( __( 'Please, select an option', WPMUDEV_CLONER_LANG_DOMAIN ) );
 				break;
 			}
+		}
+
+		if ( $blog_id === 1 || is_main_site( $blog_id ) ) {
+			$additional_tables_selected = empty( $_REQUEST['additional_tables'] ) ? array() : $_REQUEST['additional_tables'];
+			update_site_option( 'cloner_main_site_tables_selected', $additional_tables_selected );
 		}
 
 		// New Blog Templates integration
@@ -335,10 +389,29 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
         // Update the blog name
         update_blog_option( $new_blog_id, 'blogname', $source_blog_details->blogname );
 
+        if ( is_main_site( $source_blog_id ) || $source_blog_id === 1 )
+        	add_action( 'copier_set_copier_args', array( $this, 'set_copier_tables_for_main_site' ), 1 );
+
         // And set copier arguments
         $result = copier_set_copier_args( $source_blog_id, $new_blog_id );
 
         return $new_blog_id;
+    }
+
+    /**
+     * If we are copying the main site, we need to exclude network tables
+     * but this is up to the user, so let's make whatever we can.
+     * 
+     * @param Array $option The current options to clone
+     * @return Array new clone options
+     */
+    function set_copier_tables_for_main_site( $option ) {
+    	if ( isset( $option['to_copy']['tables'] ) ) {
+    		// Get the tables selected, they should be saved already
+    		$option['to_copy']['tables'] = array( 'tables' => get_site_option( 'cloner_main_site_tables_selected', array() ) );
+    	}
+
+    	return $option;
     }
 
 }

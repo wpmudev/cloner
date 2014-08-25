@@ -46,7 +46,7 @@ class WPMUDEV_Cloner {
 
 		add_action( 'network_admin_notices', array( $this, 'display_installation_admin_notice' ) );
 
-		add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ) );
+		add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ), 10, 3 );
 		add_filter( 'blog_templates-copy-options', array( $this, 'add_blogname_suffix' ) );
 
 		if ( is_network_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
