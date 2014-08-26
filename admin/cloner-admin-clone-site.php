@@ -148,7 +148,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		if ( empty( $_REQUEST['clone-site-submit'] ) )
 			return;		
 
-		$blog_id = ! empty( $_REQUEST['blog_id'] ) ? absint( $_REQUEST['blog_id'] ) : 1;
+		$blog_id = ! empty( $_REQUEST['blog_id'] ) ? absint( $_REQUEST['blog_id'] ) : 0;
 		$blog_details = get_blog_details( $blog_id );
 
 		check_admin_referer( 'clone-site-' . $blog_id, '_wpnonce_clone-site' );
