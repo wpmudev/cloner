@@ -141,17 +141,6 @@ class WPMUDEV_Cloner {
 	}  
 	
 
-	/**
-	 * Add "(copy)" string to the cloned blogname
-	 * 
-	 */
-	public function add_blogname_suffix() {
-		$blogname = get_option( 'blogname' );
-		$blogname = str_replace( __( ' (copy)', WPMUDEV_CLONER_LANG_DOMAIN ), '', $blogname );
-        $blogname .= __( ' (copy)', WPMUDEV_CLONER_LANG_DOMAIN );
-        update_option( 'blogname', $blogname );
-	}
-
 	public function maybe_upgrade() {
 		$current_version_saved = get_site_option( 'wpmudev_cloner_version', '1.1' );
 

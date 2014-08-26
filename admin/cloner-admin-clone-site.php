@@ -148,7 +148,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		if ( empty( $_REQUEST['clone-site-submit'] ) )
 			return;		
 
-		$blog_id = ! empty( $_REQUEST['blog_id'] ) ? absint( $_REQUEST['blog_id'] ) : 0;
+		$blog_id = ! empty( $_REQUEST['blog_id'] ) ? absint( $_REQUEST['blog_id'] ) : 1;
 		$blog_details = get_blog_details( $blog_id );
 
 		check_admin_referer( 'clone-site-' . $blog_id, '_wpnonce_clone-site' );
@@ -200,7 +200,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
 								<?php wp_nonce_field( 'clone-site-' . $blog_id, '_wpnonce_clone-site' ); ?>
 
-								<p><?php _e( 'You have chosen to clone the main blog. Please, deselect those tables that you think are network-only tables. Copying network tables usually takes up too much space.', WPMUDEV_CLONER_LANG_DOMAIN ); ?></p>
+								<p><?php _e( 'You have chosen to clone the main blog. Please, <strong>keep deselected</strong> those tables that you think are network-only tables. Copying network tables usually takes up too much space and can be an expensive operation.', WPMUDEV_CLONER_LANG_DOMAIN ); ?></p>
 								<?php foreach ( $additional_tables as $table ): ?>
 		                            <?php
 		                                $table_name = $table['name'];
@@ -229,7 +229,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 					$blog_name = isset( $_REQUEST['blog_replace_autocomplete'] ) ? $_REQUEST['blog_replace_autocomplete'] : '';
 					$destination_blog_details = get_blog_details( $blog_name );
 
-					if ( empty( $destination_blog_details ) || $destination_blog_details->blog_id == 1 ) {
+					if ( empty( $destination_blog_details ) ) {
 						$destination_blog_id = false;
 					}
 					else {
@@ -249,9 +249,6 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 				if ( empty( $destination_blog_details ) )
 					wp_die( __( 'The site you are trying to replace does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
 
-				// Do not clone over the main site
-        		if ( $destination_blog_details->blog_id === 1 || is_main_site( $destination_blog_details->blog_id ) )
-            		wp_die( __( 'Sorry, main site cannot be overwritten', WPMUDEV_CLONER_LANG_DOMAIN ) );
 
 				// The blog must be overwritten because it already exists
 		        $args['override'] = absint( $destination_blog_details->blog_id );

@@ -30,7 +30,8 @@
 						<?php _e( 'Replace existing Site', WPMUDEV_CLONER_LANG_DOMAIN ); ?>
 					</label>
 				</p>
-				<input name="blog_replace_autocomplete" type="text" class="regular-text ui-autocomplete-input" title="<?php esc_attr_e( 'Domain' ) ?>" placeholder="<?php echo esc_attr( __( 'Start writing to search an existing site' ) ); ?>"/>
+				<input name="blog_replace_autocomplete" type="text" class="regular-text ui-autocomplete-input" title="<?php esc_attr_e( 'Domain' ) ?>" placeholder="<?php echo esc_attr( __( 'Start writing to search an existing site' ) ); ?>"/><br/>
+				<span class="description"><?php _e( 'Leave it blank to clone to the main site', WPMUDEV_CLONER_LANG_DOMAIN ); ?></span>
 				<input name="blog_replace" type="hidden" value=""/>
 			</div>
 			<div class="clear"></div>
