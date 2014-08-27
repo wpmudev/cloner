@@ -2,13 +2,25 @@ Plugin Name: Cloner
 Author: WPMU DEV
 Tags: multisite plugin, wordpress plugin, wordpress multisite, multisite, new blogs and users
 Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 1.1
+Tested up to: 3.9.2
+Stable tag: 1.2
 
 
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+
+1.2 - 2014-08-27
+----------------------------------------------------------------------
+- Enhanced: UI revamped.
+- Enhanced: New "Copy Custom Post Types" option.
+- Enhanced: Main site is now available to copy.
+- Enhanced: Posts are now copy with any status.
+- Enhanced: Autocomplete in Cloner screen has been improved.
+- Enhanced: Better memory usage.
+- Enhanced: New hooks added.
+- Fixed: Blog status were not copied.
+- Fixed minor issues.
 
 1.1 - 2014-08-18
 ----------------------------------------------------------------------

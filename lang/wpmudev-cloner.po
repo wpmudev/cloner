@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cloner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-14 10:13+0100\n"
-"PO-Revision-Date: 2014-08-14 10:13+0100\n"
+"POT-Creation-Date: 2014-08-27 11:21+0100\n"
+"PO-Revision-Date: 2014-08-27 11:21+0100\n"
 "Last-Translator: Ignacio <igmoweb@gmail.com>\n"
 "Language-Team: WPMU DEV\n"
 "Language: English\n"
@@ -18,14 +18,14 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../cloner.php:108
+#: ../cloner.php:113
 #, php-format
 msgid ""
 "Cloner has been successfully installed, it can be configured from <a href="
 "\"%s\">Settings &raquo; Cloner</a>"
 msgstr ""
 
-#: ../cloner.php:109
+#: ../cloner.php:114
 msgid "Dismiss"
 msgstr ""
 
@@ -33,64 +33,51 @@ msgstr ""
 msgid "Clone"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:103
-#: ../admin/cloner-admin-clone-site.php:104 ../admin/views/clone-site.php:2
-#: ../admin/views/clone-site.php:38
+#: ../admin/cloner-admin-clone-site.php:110
+#: ../admin/cloner-admin-clone-site.php:111 ../admin/views/clone-site.php:2
+#: ../admin/views/clone-site.php:29
 msgid "Clone Site"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:137
-#: ../admin/cloner-admin-settings.php:121 ../helpers/settings.php:40
+#: ../admin/cloner-admin-clone-site.php:166
+msgid "Destination"
+msgstr ""
+
+#: ../admin/cloner-admin-clone-site.php:169
+msgid "Advanced Options"
+msgstr ""
+
+#: ../admin/cloner-admin-clone-site.php:197
+#: ../admin/cloner-admin-settings.php:121 ../helpers/settings.php:64
 msgid "Settings"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:159
+#: ../admin/cloner-admin-clone-site.php:221
 msgid "The blog that you are trying to copy does not exist"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:163
-msgid "Sorry, main site cannot be cloned"
-msgstr ""
-
-#: ../admin/cloner-admin-clone-site.php:176
+#: ../admin/cloner-admin-clone-site.php:243
 msgid "Please, insert a site name"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:183
+#: ../admin/cloner-admin-clone-site.php:252
 msgid "Missing or invalid site address."
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:188
+#: ../admin/cloner-admin-clone-site.php:259
 msgid "The blog already exists"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:196
-#: ../admin/cloner-admin-clone-site.php:204
+#: ../admin/cloner-admin-clone-site.php:283
+#: ../admin/cloner-admin-clone-site.php:295
 msgid "The site you are trying to replace does not exist"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:199
+#: ../admin/cloner-admin-clone-site.php:288
 msgid "You cannot copy a blog to itself"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:208
-msgid "Sorry, main site cannot be overwritten"
-msgstr ""
-
-#: ../admin/cloner-admin-clone-site.php:241
-#, php-format
-msgid ""
-"You have chosen a URL that already exists. If you choose ‘Continue’, all "
-"existing site content and settings on %s will be completely overwritten with "
-"content and settings from %s. This change is permanent and can’t be undone, "
-"so please be careful. "
-msgstr ""
-
-#: ../admin/cloner-admin-clone-site.php:247
-msgid "Continue"
-msgstr ""
-
-#: ../admin/cloner-admin-clone-site.php:256
+#: ../admin/cloner-admin-clone-site.php:329
 msgid "Please, select an option"
 msgstr ""
 
@@ -106,29 +93,41 @@ msgstr ""
 msgid "You need to check at least one option"
 msgstr ""
 
-#: ../admin/views/clone-site.php:13
-msgid "Create a new Site"
+#: ../admin/views/confirmation.php:10
+msgid "Confirm action"
 msgstr ""
 
-#: ../admin/views/clone-site.php:17 ../admin/views/clone-site.php:21
-#: ../admin/views/clone-site.php:33
-msgid "Domain"
+#: ../admin/views/confirmation.php:22
+#, php-format
+msgid ""
+"You have chosen a URL that already exists. If you choose ‘Continue’, all "
+"existing site content and settings on %s will be completely overwritten with "
+"content and settings from %s. This change is permanent and can’t be undone, "
+"so please be careful. "
 msgstr ""
 
-#: ../admin/views/clone-site.php:17 ../admin/views/clone-site.php:21
-msgid "Type your site name here..."
+#: ../admin/views/confirmation.php:36
+msgid "Continue"
 msgstr ""
 
-#: ../admin/views/clone-site.php:23
-msgid "Only lowercase letters (a-z) and numbers are allowed."
+#: ../admin/views/confirmation.php:37
+msgid "No, please I want to go back"
 msgstr ""
 
-#: ../admin/views/clone-site.php:30
-msgid "Replace existing Site"
+#: ../admin/views/clone-site.php:7
+msgid "Cloning"
 msgstr ""
 
-#: ../admin/views/clone-site.php:33
-msgid "Start writing to search an existing site"
+#: ../admin/views/clone-site.php:14
+msgid "Choose a different site"
+msgstr ""
+
+#: ../admin/views/clone-site.php:169
+msgid "Ignore these tables"
+msgstr ""
+
+#: ../admin/views/clone-site.php:170
+msgid "Copy these tables"
 msgstr ""
 
 #: ../admin/views/settings.php:10
@@ -152,73 +151,119 @@ msgstr ""
 msgid "Select content you want to be copied:"
 msgstr ""
 
-#: ../copier/class.copier-post-types.php:51
+#: ../admin/views/meta-boxes/advanced.php:1
+msgid ""
+"You have chosen to clone the main blog. Please <strong>select tables you "
+"want cloned</strong>. Beware, network-only tables can take up a lot of space "
+"and a long time to clone."
+msgstr ""
+
+#: ../admin/views/meta-boxes/destination.php:5
+msgid "Create a new Site"
+msgstr ""
+
+#: ../admin/views/meta-boxes/destination.php:9
+#: ../admin/views/meta-boxes/destination.php:13
+#: ../admin/views/meta-boxes/destination.php:30
+msgid "Domain"
+msgstr ""
+
+#: ../admin/views/meta-boxes/destination.php:9
+#: ../admin/views/meta-boxes/destination.php:13
+msgid "Type your site name here..."
+msgstr ""
+
+#: ../admin/views/meta-boxes/destination.php:15
+msgid "Only lowercase letters (a-z) and numbers are allowed."
+msgstr ""
+
+#: ../admin/views/meta-boxes/destination.php:24
+msgid "Replace existing Site"
+msgstr ""
+
+#: ../admin/views/meta-boxes/destination.php:30
+msgid "Start writing to search an existing site"
+msgstr ""
+
+#: ../admin/views/meta-boxes/destination.php:31
+msgid "Leave it blank to clone to the main site"
+msgstr ""
+
+#: ../copier/class.copier-post-types.php:24
+msgid "Wrong Post Type"
+msgstr ""
+
+#: ../copier/class.copier-post-types.php:90
 msgid "No posts to copy"
 msgstr ""
 
-#: ../copier/copier.php:283
+#: ../copier/copier.php:307
 msgid "Error getting option"
 msgstr ""
 
-#: ../copier/copier.php:305
+#: ../copier/copier.php:331
 msgid "Process Finished"
 msgstr ""
 
-#: ../copier/copier.php:326
+#: ../copier/copier.php:352
 msgid "No attachments to copy"
 msgstr ""
 
-#: ../copier/copier.php:360
+#: ../copier/copier.php:386
 #, php-format
 msgid "Error getting class (%s)"
 msgstr ""
 
-#: ../copier/copier.php:384 ../copier/copier.php:387 ../copier/copier.php:390
+#: ../copier/copier.php:419
+msgid "Custom Post Types Copied"
+msgstr ""
+
+#: ../copier/copier.php:421 ../copier/copier.php:424 ../copier/copier.php:427
 #, php-format
 msgid "%s Copied"
 msgstr ""
 
-#: ../copier/copier.php:455
-msgid "New blog Setup"
-msgstr ""
-
-#: ../copier/copier.php:469
+#: ../copier/copier.php:475
 msgid "We're setting up your new blog. Please wait..."
 msgstr ""
 
-#: ../copier/copier.php:471
+#: ../copier/copier.php:499
+msgid "New blog Setup"
+msgstr ""
+
+#: ../copier/copier.php:515
 msgid ""
 "Please, set WP_DEBUG and WP_DEBUG_DISPLAY to false if you want this screen "
 "to work automatically instead of manually"
 msgstr ""
 
-#: ../copier/copier.php:474
+#: ../copier/copier.php:518
 msgid ""
 "XDebug is activated, turn it off if you want this screen to work "
 "automatically instead of manually"
 msgstr ""
 
-#: ../copier/copier.php:476 ../copier/copier.php:482
+#: ../copier/copier.php:520 ../copier/copier.php:526
 msgid "Redirecting to dashboard..."
 msgstr ""
 
-#: ../copier/copier.php:484
+#: ../copier/copier.php:528
 msgid "Start"
 msgstr ""
 
-#: ../copier/copier.php:486
+#: ../copier/copier.php:530
 msgid "Next step"
 msgstr ""
 
-#: ../copier/copier.php:488
+#: ../copier/copier.php:532
 msgid "Return to dashboard"
 msgstr ""
 
-#: ../copier/copier.php:533
+#: ../copier/copier.php:577
 msgid "An error has occured"
 msgstr ""
 
-#: ../copier/copier.php:586
+#: ../copier/copier.php:630
 msgid "Security Error"
 msgstr ""
 
@@ -226,38 +271,38 @@ msgstr ""
 msgid "Error copying settings"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:29
+#: ../copier/class.copier-attachment.php:51
 msgid "Wrong attachment specified"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:35
+#: ../copier/class.copier-attachment.php:57
 #, php-format
 msgid "Attachment ( ID= %d ) does not exist in the source blog"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:60
+#: ../copier/class.copier-attachment.php:83
 msgid "Filetype error: "
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:227
+#: ../copier/class.copier-attachment.php:260
 #, php-format
 msgid "Remote server did not respond for file: %s"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:233
+#: ../copier/class.copier-attachment.php:266
 #, php-format
 msgid "Remote server returned error response %1$d %2$s"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:240
+#: ../copier/class.copier-attachment.php:273
 msgid "Remote file is incorrect size"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:245
+#: ../copier/class.copier-attachment.php:278
 msgid "Zero size file downloaded"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:251
+#: ../copier/class.copier-attachment.php:284
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
@@ -278,34 +323,38 @@ msgid ""
 "While clearing %2$s)"
 msgstr ""
 
-#: ../helpers/settings.php:41
+#: ../helpers/settings.php:65
 msgid "Posts"
 msgstr ""
 
-#: ../helpers/settings.php:42
+#: ../helpers/settings.php:66
 msgid "Pages"
 msgstr ""
 
-#: ../helpers/settings.php:43
+#: ../helpers/settings.php:67
+msgid "Custom Post Types"
+msgstr ""
+
+#: ../helpers/settings.php:68
 msgid "Terms"
 msgstr ""
 
-#: ../helpers/settings.php:44
+#: ../helpers/settings.php:69
 msgid "Menus"
 msgstr ""
 
-#: ../helpers/settings.php:45
+#: ../helpers/settings.php:70
 msgid "Users"
 msgstr ""
 
-#: ../helpers/settings.php:46
+#: ../helpers/settings.php:71
 msgid "Comments"
 msgstr ""
 
-#: ../helpers/settings.php:47
+#: ../helpers/settings.php:72
 msgid "Attachments"
 msgstr ""
 
-#: ../helpers/settings.php:48
+#: ../helpers/settings.php:73
 msgid "Custom tables"
 msgstr ""
