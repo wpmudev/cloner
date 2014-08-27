@@ -34,8 +34,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 class WPMUDEV_Cloner {
 
-	public $admin_menu_id;
-
 	public function __construct() {
 		$this->set_constants();
 		$this->includes();
@@ -162,3 +160,13 @@ class WPMUDEV_Cloner {
 }
 
 $nbt_cloner = new WPMUDEV_Cloner();
+
+
+
+//add_action( 'init', 'test' );
+function test() {
+	if ( get_current_blog_id() != 8 )
+		return;
+
+	copier_woocommerce_set_new_product_attributes( 2, 1, array( 'posts_mapping' => array( 99 => 4072, 83 => 4077, 90 => 4075 ) )  );
+}

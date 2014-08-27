@@ -130,6 +130,9 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		$blog_id = absint( $_REQUEST['blog_id'] );
 		$blog_details = get_blog_details( $blog_id );
 
+		if ( ! $blog_details )
+			wp_die( __( 'The blog that you are trying to copy does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
+
 		$domain = '';
 		$subdomain = '';
 		if ( is_subdomain_install() ) {
