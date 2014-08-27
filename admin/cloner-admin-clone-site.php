@@ -42,6 +42,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		add_filter( 'manage_sites_action_links', array( &$this, 'add_site_action_link' ), 10, 2 );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_javascript' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'add_css' ) );
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . $this->plugin_slug . '.php' );
@@ -86,7 +87,14 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 	function add_javascript() {
 		if ( get_current_screen()->id == $this->plugin_screen_hook_suffix . '-network' ) {
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
+			wp_enqueue_script( 'jquery-multi-select-css', WPMUDEV_CLONER_PLUGIN_URL . 'admin/assets/jquery-multi-select/js/jquery-multi-select.js', array( 'jquery' ), WPMUDEV_CLONER_VERSION );
+			wp_enqueue_script('post');
 		}
+	}
+
+	function add_css() {
+		if ( get_current_screen()->id == $this->plugin_screen_hook_suffix . '-network' )
+			wp_enqueue_style( 'jquery-multi-select-css', WPMUDEV_CLONER_PLUGIN_URL . 'admin/assets/jquery-multi-select/css/multi-select.css', array(), WPMUDEV_CLONER_VERSION );
 	}
 
 
@@ -120,8 +128,61 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		global $current_site;
 
 		$blog_id = absint( $_REQUEST['blog_id'] );
+		$blog_details = get_blog_details( $blog_id );
+
+		$domain = '';
+		$subdomain = '';
+		if ( is_subdomain_install() ) {
+			if ( $blog_id == 1 ) {
+				$domain = $blog_details->domain;
+			}
+			else {
+				$_domain = explode( '.', $blog_details->domain, 2 ); 		
+				$subdomain = $_domain[0] . '.';
+				$domain = $_domain[1];
+			}
+		}
+		else {
+			$domain = $blog_details->domain;
+			$subdomain = $blog_details->path;
+		}
+
+
+		$selected_array = json_encode( array() );
+		if ( $blog_id === 1 ) {
+			$additional_tables = copier_get_additional_tables( $blog_id );
+			$additional_tables_previous_selection = get_site_option( 'cloner_main_site_tables_selected', array() );
+			$selected_array = json_encode( $additional_tables_previous_selection );
+		}
+
+			
+
+		$form_url = add_query_arg(
+			array(
+				'action' => 'clone'
+			)
+		);
+
+		add_meta_box( 'cloner-destination', __( 'Destination', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'destination_meta_box' ), 'cloner', 'normal' );
+
+		if ( ! empty( $additional_tables ) && $blog_id == 1 )
+			add_meta_box( 'cloner-advanced', __( 'Advanced Options', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'advanced_options_meta_box' ), 'cloner', 'normal' );
 
 		include_once( 'views/clone-site.php' );
+	}
+
+	public function destination_meta_box() {
+		global $current_site;
+
+		include_once( 'views/meta-boxes/destination.php' );
+	}
+
+	public function advanced_options_meta_box() {
+		$blog_id = absint( $_REQUEST['blog_id'] );
+		$additional_tables = copier_get_additional_tables( $blog_id );
+		$additional_tables_previous_selection = get_site_option( 'cloner_main_site_tables_selected', array() );
+
+		include_once( 'views/meta-boxes/advanced.php' );
 	}
 
 	/**
@@ -138,7 +199,9 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 			$links
 		);
 
-	}
+	}		
+    	
+
 
 	/**
 	 * Sanitize the clone form
@@ -154,8 +217,10 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		check_admin_referer( 'clone-site-' . $blog_id, '_wpnonce_clone-site' );
 
 		// Does the source blog exists?
-		if ( ! $blog_id || empty( $blog_details ) )
-			wp_die( __( 'The blog that you are trying to copy does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
+		if ( ! $blog_id || empty( $blog_details ) ) {
+			add_settings_error( 'cloner', 'source_blog_not_exist', __( 'The blog that you are trying to copy does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
+			return;
+		}
 
 		$selection = empty( $_REQUEST['cloner-clone-selection'] ) ? false : $_REQUEST['cloner-clone-selection'];
 
@@ -163,60 +228,36 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
 		$settings = wpmudev_cloner_get_settings();
 
+		if ( $blog_id === 1 ) {
+			$additional_tables_selected = empty( $_REQUEST['additional_tables'] ) ? array() : $_REQUEST['additional_tables'];
+			update_site_option( 'cloner_main_site_tables_selected', $additional_tables_selected );
+		}
+
 		switch ( $selection ) {
 			case 'create': {
 				// Checking if the blog already exists
 				// Sanitize the domain/subfolder
 				$blog = ! empty( $_REQUEST['blog_create'] ) ? $_REQUEST['blog_create'] : false;
 
-				if ( ! $blog )
-					wp_die( __( 'Please, insert a site name', WPMUDEV_CLONER_LANG_DOMAIN ) );
+				if ( ! $blog ) {
+					add_settings_error( 'cloner', 'source_blog_not_exist', __( 'Please, insert a site name', WPMUDEV_CLONER_LANG_DOMAIN ) );
+					return;
+				}
 
 				$domain = '';
 				if ( preg_match( '|^([a-zA-Z0-9-])+$|', $blog ) )
 					$domain = strtolower( $blog );
 
-				if ( empty( $domain ) )
-					wp_die( __( 'Missing or invalid site address.' ) );
+				if ( empty( $domain ) ) {
+					add_settings_error( 'cloner', 'source_blog_not_exist', __( 'Missing or invalid site address.', WPMUDEV_CLONER_LANG_DOMAIN ) );
+					return;
+				}
 
 				$destination_blog_details = get_blog_details( $domain );
 
-				if ( ! empty( $destination_blog_details ) )
-					wp_die( __( 'The blog already exists', WPMUDEV_CLONER_LANG_DOMAIN ) );
-
-				if ( ( is_main_site( $blog_id ) || $blog_id === 1 ) && ! isset( $_REQUEST['confirm'] ) && in_array( 'tables', $settings['to_copy'] ) ) {
-					
-					$additional_tables = copier_get_additional_tables( $blog_id );
-					$additional_tables_previous_selection = get_site_option( 'cloner_main_site_tables_selected', array() );
-
-					if ( ! empty( $additional_tables ) ) {
-						?>
-							<form method="post" action="<?php echo network_admin_url( 'index.php?page=clone_site' ); ?>">
-								<input type="hidden" name="action" value="clone" />
-								<input type="hidden" name="blog_id" value="<?php echo $blog_id; ?>" />
-								<input type="hidden" name="blog_create" value="<?php echo $blog; ?>" />
-								<input type="hidden" name="clone-site-submit" value="true" />
-								<input type="hidden" name="cloner-clone-selection" value="create" />
-
-								<?php wp_nonce_field( 'clone-site-' . $blog_id, '_wpnonce_clone-site' ); ?>
-
-								<p><?php _e( 'You have chosen to clone the main blog. Please, <strong>keep deselected</strong> those tables that you think are network-only tables. Copying network tables usually takes up too much space and can be an expensive operation.', WPMUDEV_CLONER_LANG_DOMAIN ); ?></p>
-								<?php foreach ( $additional_tables as $table ): ?>
-		                            <?php
-		                                $table_name = $table['name'];
-		                                $value = $table['prefix.name'];
-		                                $checked = in_array( $value, $additional_tables_previous_selection );
-		                            ?>
-
-		                            <input type='checkbox' name='additional_tables[]' <?php checked( $checked ); ?> id="nbt-<?php echo esc_attr( $value ); ?>" value="<?php echo esc_attr( $value ); ?>">
-		                            <label for="nbt-<?php echo esc_attr( $value ); ?>"><?php echo $table_name; ?></label><br/>
-		                        <?php endforeach; ?>
-
-								<?php submit_button( __( 'Continue', WPMUDEV_CLONER_LANG_DOMAIN ), 'primary', 'confirm' ); ?>
-							</form>
-						<?php
-						wp_die();
-					}
+				if ( ! empty( $destination_blog_details ) ) {
+					add_settings_error( 'cloner', 'source_blog_not_exist', __( 'The blog already exists', WPMUDEV_CLONER_LANG_DOMAIN ) );
+					return;
 				}
 
 				break;
@@ -238,16 +279,22 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 					
 				}
 
-				if ( ! $destination_blog_id )
-					wp_die( __( 'The site you are trying to replace does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
+				if ( ! $destination_blog_id ) {
+					add_settings_error( 'cloner', 'source_blog_not_exist', __( 'The site you are trying to replace does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
+					return;
+				}
 
-				if ( $destination_blog_id == $blog_id )
-					wp_die( __( 'You cannot copy a blog to itself', WPMUDEV_CLONER_LANG_DOMAIN ) );
+				if ( $destination_blog_id == $blog_id ) {
+					add_settings_error( 'cloner', 'source_blog_not_exist', __( 'You cannot copy a blog to itself', WPMUDEV_CLONER_LANG_DOMAIN ) );
+					return;
+				}
 
 				$destination_blog_details = get_blog_details( $destination_blog_id );
 
-				if ( empty( $destination_blog_details ) )
-					wp_die( __( 'The site you are trying to replace does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
+				if ( empty( $destination_blog_details ) ) {
+					add_settings_error( 'cloner', 'source_blog_not_exist', __( 'The site you are trying to replace does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
+					return;
+				}
 
 
 				// The blog must be overwritten because it already exists
@@ -263,49 +310,15 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
 		        if ( ! isset( $_REQUEST['confirm'] ) ) {
 		        	// Display a confirmation screen.
+		        	$back_url = add_query_arg(
+			    		array(
+			    			'page' => 'clone_site',
+			    			'blog_id' => $blog_id
+			    		),
+			    		network_admin_url( 'admin.php' )
+			    	);
 
-					?>
-						<form method="post" action="<?php echo network_admin_url( 'index.php?page=clone_site' ); ?>">
-							<p>
-								<?php 
-									printf( 
-										__( 'You have chosen a URL that already exists. If you choose ‘Continue’, all existing site content and settings on %s will be completely overwritten with content and settings from %s. This change is permanent and can’t be undone, so please be careful. ', WPMUDEV_CLONER_LANG_DOMAIN ), 
-										'<strong>' . get_site_url( $destination_blog_details->blog_id ) . '</strong>', 
-										'<strong>' . get_site_url( $blog_details->blog_id ) . '</strong>' 
-									); 
-								?>
-							</p>
-
-							<input type="hidden" name="action" value="clone" />
-							<input type="hidden" name="blog_replace" value="<?php echo $destination_blog_id; ?>" />
-							<input type="hidden" name="blog_id" value="<?php echo $blog_id; ?>" />
-							<input type="hidden" name="clone-site-submit" value="true" />
-							<input type="hidden" name="cloner-clone-selection" value="replace" />
-							<?php wp_nonce_field( 'clone-site-' . $blog_id, '_wpnonce_clone-site' ); ?>
-
-							<?php if ( ( $blog_id === 1 || is_main_site( $blog_id ) ) && in_array( 'tables', $settings['to_copy'] ) ): ?>
-								
-								<?php $additional_tables = copier_get_additional_tables( $blog_id ); ?>
-
-								<?php $additional_tables_previous_selection = get_site_option( 'cloner_main_site_tables_selected', array() ); ?>
-
-								<p><?php _e( 'You have chosen to clone the main blog. Please, deselect those tables that you think are network-only tables. Copying network tables usually takes up too much space.', WPMUDEV_CLONER_LANG_DOMAIN ); ?></p>
-								<?php foreach ( $additional_tables as $table ): ?>
-		                            <?php
-		                                $table_name = $table['name'];
-		                                $value = $table['prefix.name'];
-		                                $checked = in_array( $value, $additional_tables_previous_selection );
-		                            ?>
-
-		                            <input type='checkbox' name='additional_tables[]' <?php checked( $checked ); ?> id="nbt-<?php echo esc_attr( $value ); ?>" value="<?php echo esc_attr( $value ); ?>">
-		                            <label for="nbt-<?php echo esc_attr( $value ); ?>"><?php echo $table_name; ?></label><br/>
-		                        <?php endforeach; ?>
-							<?php endif; ?>
-
-							<?php submit_button( __( 'Continue', WPMUDEV_CLONER_LANG_DOMAIN ), 'primary', 'confirm' ); ?>
-
-						</form>
-					<?php
+		        	include_once( 'views/confirmation.php' );
 
 					wp_die();
 		        }
@@ -313,16 +326,13 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 				break;
 			}
 			default: {
-				wp_die( __( 'Please, select an option', WPMUDEV_CLONER_LANG_DOMAIN ) );
+				add_settings_error( 'cloner', 'source_blog_not_exist', __( 'Please, select an option', WPMUDEV_CLONER_LANG_DOMAIN ) );
+				return;
 				break;
 			}
 		}
 
-		if ( $blog_id === 1 || is_main_site( $blog_id ) ) {
-			$additional_tables_selected = empty( $_REQUEST['additional_tables'] ) ? array() : $_REQUEST['additional_tables'];
-			update_site_option( 'cloner_main_site_tables_selected', $additional_tables_selected );
-		}
-
+	
 		// New Blog Templates integration
 		if ( class_exists( 'blog_templates' ) ) {
 			$action_order = defined('NBT_APPLY_TEMPLATE_ACTION_ORDER') && NBT_APPLY_TEMPLATE_ACTION_ORDER ? NBT_APPLY_TEMPLATE_ACTION_ORDER : 9999;

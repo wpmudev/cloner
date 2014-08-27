@@ -68,6 +68,9 @@ class WPMUDEV_Cloner {
 		if ( ! defined( 'WPMUDEV_CLONER_PLUGIN_DIR' ) )
 			define( 'WPMUDEV_CLONER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
+		if ( ! defined( 'WPMUDEV_CLONER_PLUGIN_URL' ) )
+			define( 'WPMUDEV_CLONER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
 		if ( ! defined( 'WPMUDEV_CLONER_LANG_DOMAIN' ) )
 			define( 'WPMUDEV_CLONER_LANG_DOMAIN', 'wpmudev-cloner' );
 
