@@ -263,6 +263,11 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 					return;
 				}
 
+				do_action( 'wpmudev_cloner_pre_clone_actions', $selection, $blog_id, $args, false );
+				$errors = get_settings_errors( 'cloner' );
+				if ( ! empty( $errors ) )
+					return;
+
 				break;
 			}
 			case 'replace': {
@@ -311,6 +316,11 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		        	$domain = str_replace( '/', '', $destination_blog_details->path );
 		        }
 
+		        do_action( 'wpmudev_cloner_pre_clone_actions', $selection, $blog_id, $args, $destination_blog_id );
+				$errors = get_settings_errors( 'cloner' );
+				if ( ! empty( $errors ) )
+					return;
+
 		        if ( ! isset( $_REQUEST['confirm'] ) ) {
 		        	// Display a confirmation screen.
 		        	$back_url = add_query_arg(
@@ -353,6 +363,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 			$path = $current_site->path . $domain . '/'; //$path = '/' . $domain; // Do NOT assume the root to be server root
 			$domain = $current_site->domain;
 		}
+
 
 		// Set everything needed to clone the site
 		$result = $this->pre_clone_actions( $blog_id, $domain, $path, $args );
