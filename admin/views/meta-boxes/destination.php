@@ -1,4 +1,4 @@
-<div class="cloner-clone-option">
+<div class="cloner-clone-option" id="cloner-create-wrap">
 	<p>
 		<label for="cloner-create">
 			<input type="radio" name="cloner-clone-selection" value="create" id="cloner-create" class="clone_clone_option"/> 
@@ -17,7 +17,7 @@
 
 </div>
 
-<div class="cloner-clone-option">
+<div class="cloner-clone-option" id="cloner-replace-wrap">
 	<p>
 		<label for="cloner-replace">
 			<input type="radio" name="cloner-clone-selection" value="replace" id="cloner-replace" class="clone_clone_option"/> 
@@ -32,3 +32,5 @@
 	<input name="blog_replace" type="hidden" value=""/>
 </div>
 <div class="clear"></div>
+
+<?php do_action( 'wpmudev_cloner_destination_meta_box' ); ?>
