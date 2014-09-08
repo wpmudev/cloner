@@ -17,22 +17,33 @@ function cloner_autocomplete_site() {
 	if ( isset( $_REQUEST['blog_id'] ) )
 		$exclude_blog_id = absint( $_REQUEST['blog_id'] );
 
-	$s = $_REQUEST['term'];
-	$like_s = esc_sql( like_escape( $s ) );
-
 	$query = "SELECT * FROM {$wpdb->blogs} WHERE site_id = '{$wpdb->siteid}' ";
 
-	if ( is_subdomain_install() ) {
-		$blog_s = str_replace( '.' . $current_site->domain, '', $like_s );
-		$blog_s .= '%.' . $current_site->domain;
-		$query .= " AND ( {$wpdb->blogs}.domain LIKE '$blog_s' ) ";
-	} else {
-		if ( $like_s != trim( '/', $current_site->path ) )
-			$blog_s = $current_site->path . $like_s . '%/';
-		else
-			$blog_s = $like_s;
-		$query .= " AND  ( {$wpdb->blogs}.path LIKE '$blog_s' )";
+	$s = $_REQUEST['term'];
+
+	$wild = '%';
+	if ( false !== strpos( $s, '*' ) ) {
+		$wild = '%';
+		$s = trim( $s, '*' );
 	}
+	if ( is_numeric( $s ) ) {
+			$query .= $wpdb->prepare( " AND ( {$wpdb->blogs}.blog_id = %s )", $s );
+	} 
+	elseif ( is_subdomain_install() ) {
+		$blog_s = str_replace( '.' . $current_site->domain, '', $s );
+		$blog_s = $wild . $wpdb->esc_like( $blog_s ) . $wild;
+		$query .= $wpdb->prepare( " AND ( {$wpdb->blogs}.domain LIKE %s ) ", $blog_s );
+	} 
+	else {
+		if ( $s != trim('/', $current_site->path) ) {
+			$blog_s = $wpdb->esc_like( $current_site->path . $s ) . $wild . $wpdb->esc_like( '/' );
+		} else {
+			$blog_s = $wpdb->esc_like( $s );
+		}
+		$query .= $wpdb->prepare( " AND  ( {$wpdb->blogs}.path LIKE %s )", $blog_s );
+	}
+
+	$query .= $wpdb->prepare( " AND blog_id != %d", $exclude_blog_id );
 
 	$query .= " LIMIT 10";
 

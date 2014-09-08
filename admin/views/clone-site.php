@@ -121,6 +121,7 @@
 						type: 'post',
 						dataType: 'json'
 					}).done(function( data ) {
+						console.log(data);
 						response( data );
 					});
 
