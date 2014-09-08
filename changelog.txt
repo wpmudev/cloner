@@ -10,6 +10,16 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+1.3 - 2014-09-08
+----------------------------------------------------------------------
+- Fixed: Warning when creating a new site.
+- Fixed: Issue in autocomplete for some sites setup.
+- Enhanced: Added Ultimate Shortcodes integration.
+- Enhanced: Added new hooks.
+- Enhanced: Attachments in destination blog are now deleted before cloning.
+- Enhanced: Attachments can now be cloned based only on URL instead of attachment IDs
+- Other minor bugfixes.
+
 1.2 - 2014-08-27
 ----------------------------------------------------------------------
 - Enhanced: UI revamped.

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cloner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-27 11:21+0100\n"
-"PO-Revision-Date: 2014-08-27 11:21+0100\n"
+"POT-Creation-Date: 2014-09-08 10:15+0100\n"
+"PO-Revision-Date: 2014-09-08 10:15+0100\n"
 "Last-Translator: Ignacio <igmoweb@gmail.com>\n"
 "Language-Team: WPMU DEV\n"
 "Language: English\n"
@@ -18,14 +18,14 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../cloner.php:113
+#: ../cloner.php:110
 #, php-format
 msgid ""
 "Cloner has been successfully installed, it can be configured from <a href="
 "\"%s\">Settings &raquo; Cloner</a>"
 msgstr ""
 
-#: ../cloner.php:114
+#: ../cloner.php:111
 msgid "Dismiss"
 msgstr ""
 
@@ -39,45 +39,46 @@ msgstr ""
 msgid "Clone Site"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:166
-msgid "Destination"
+#: ../admin/cloner-admin-clone-site.php:134
+#: ../admin/cloner-admin-clone-site.php:224
+msgid "The blog that you are trying to copy does not exist"
 msgstr ""
 
 #: ../admin/cloner-admin-clone-site.php:169
+msgid "Destination"
+msgstr ""
+
+#: ../admin/cloner-admin-clone-site.php:172
 msgid "Advanced Options"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:197
+#: ../admin/cloner-admin-clone-site.php:200
 #: ../admin/cloner-admin-settings.php:121 ../helpers/settings.php:64
 msgid "Settings"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:221
-msgid "The blog that you are trying to copy does not exist"
-msgstr ""
-
-#: ../admin/cloner-admin-clone-site.php:243
+#: ../admin/cloner-admin-clone-site.php:246
 msgid "Please, insert a site name"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:252
+#: ../admin/cloner-admin-clone-site.php:255
 msgid "Missing or invalid site address."
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:259
+#: ../admin/cloner-admin-clone-site.php:262
 msgid "The blog already exists"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:283
-#: ../admin/cloner-admin-clone-site.php:295
+#: ../admin/cloner-admin-clone-site.php:291
+#: ../admin/cloner-admin-clone-site.php:303
 msgid "The site you are trying to replace does not exist"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:288
+#: ../admin/cloner-admin-clone-site.php:296
 msgid "You cannot copy a blog to itself"
 msgstr ""
 
-#: ../admin/cloner-admin-clone-site.php:329
+#: ../admin/cloner-admin-clone-site.php:342
 msgid "Please, select an option"
 msgstr ""
 
@@ -122,11 +123,11 @@ msgstr ""
 msgid "Choose a different site"
 msgstr ""
 
-#: ../admin/views/clone-site.php:169
+#: ../admin/views/clone-site.php:170
 msgid "Ignore these tables"
 msgstr ""
 
-#: ../admin/views/clone-site.php:170
+#: ../admin/views/clone-site.php:171
 msgid "Copy these tables"
 msgstr ""
 
@@ -190,80 +191,80 @@ msgid "Leave it blank to clone to the main site"
 msgstr ""
 
 #: ../copier/class.copier-post-types.php:24
-msgid "Wrong Post Type"
+msgid "No Custom Post Types to copy"
 msgstr ""
 
-#: ../copier/class.copier-post-types.php:90
+#: ../copier/class.copier-post-types.php:91
 msgid "No posts to copy"
 msgstr ""
 
-#: ../copier/copier.php:307
+#: ../copier/copier.php:317
 msgid "Error getting option"
 msgstr ""
 
-#: ../copier/copier.php:331
+#: ../copier/copier.php:347
 msgid "Process Finished"
 msgstr ""
 
-#: ../copier/copier.php:352
+#: ../copier/copier.php:368
 msgid "No attachments to copy"
 msgstr ""
 
-#: ../copier/copier.php:386
+#: ../copier/copier.php:408
 #, php-format
 msgid "Error getting class (%s)"
 msgstr ""
 
-#: ../copier/copier.php:419
+#: ../copier/copier.php:441
 msgid "Custom Post Types Copied"
 msgstr ""
 
-#: ../copier/copier.php:421 ../copier/copier.php:424 ../copier/copier.php:427
+#: ../copier/copier.php:443 ../copier/copier.php:446 ../copier/copier.php:449
 #, php-format
 msgid "%s Copied"
 msgstr ""
 
-#: ../copier/copier.php:475
+#: ../copier/copier.php:522
 msgid "We're setting up your new blog. Please wait..."
 msgstr ""
 
-#: ../copier/copier.php:499
+#: ../copier/copier.php:546
 msgid "New blog Setup"
 msgstr ""
 
-#: ../copier/copier.php:515
+#: ../copier/copier.php:562
 msgid ""
 "Please, set WP_DEBUG and WP_DEBUG_DISPLAY to false if you want this screen "
 "to work automatically instead of manually"
 msgstr ""
 
-#: ../copier/copier.php:518
+#: ../copier/copier.php:565
 msgid ""
 "XDebug is activated, turn it off if you want this screen to work "
 "automatically instead of manually"
 msgstr ""
 
-#: ../copier/copier.php:520 ../copier/copier.php:526
+#: ../copier/copier.php:567 ../copier/copier.php:573
 msgid "Redirecting to dashboard..."
 msgstr ""
 
-#: ../copier/copier.php:528
+#: ../copier/copier.php:575
 msgid "Start"
 msgstr ""
 
-#: ../copier/copier.php:530
+#: ../copier/copier.php:577
 msgid "Next step"
 msgstr ""
 
-#: ../copier/copier.php:532
+#: ../copier/copier.php:579
 msgid "Return to dashboard"
 msgstr ""
 
-#: ../copier/copier.php:577
+#: ../copier/copier.php:624
 msgid "An error has occured"
 msgstr ""
 
-#: ../copier/copier.php:630
+#: ../copier/copier.php:677
 msgid "Security Error"
 msgstr ""
 
@@ -271,38 +272,38 @@ msgstr ""
 msgid "Error copying settings"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:51
+#: ../copier/class.copier-attachment.php:87
 msgid "Wrong attachment specified"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:57
+#: ../copier/class.copier-attachment.php:93
 #, php-format
 msgid "Attachment ( ID= %d ) does not exist in the source blog"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:83
+#: ../copier/class.copier-attachment.php:119
 msgid "Filetype error: "
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:260
+#: ../copier/class.copier-attachment.php:296
 #, php-format
 msgid "Remote server did not respond for file: %s"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:266
+#: ../copier/class.copier-attachment.php:302
 #, php-format
 msgid "Remote server returned error response %1$d %2$s"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:273
+#: ../copier/class.copier-attachment.php:309
 msgid "Remote file is incorrect size"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:278
+#: ../copier/class.copier-attachment.php:314
 msgid "Zero size file downloaded"
 msgstr ""
 
-#: ../copier/class.copier-attachment.php:284
+#: ../copier/class.copier-attachment.php:320
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
