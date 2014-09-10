@@ -31,14 +31,14 @@ function cloner_autocomplete_site() {
 	} 
 	elseif ( is_subdomain_install() ) {
 		$blog_s = str_replace( '.' . $current_site->domain, '', $s );
-		$blog_s = $wild . $wpdb->esc_like( $blog_s ) . $wild;
+		$blog_s = $wild . addcslashes( $blog_s, '_%\\' ) . $wild;
 		$query .= $wpdb->prepare( " AND ( {$wpdb->blogs}.domain LIKE %s ) ", $blog_s );
 	} 
 	else {
 		if ( $s != trim('/', $current_site->path) ) {
-			$blog_s = $wpdb->esc_like( $current_site->path . $s ) . $wild . $wpdb->esc_like( '/' );
+			$blog_s = addcslashes( $current_site->path . $s, '_%\\' ) . $wild . addcslashes( '/', '_%\\' );
 		} else {
-			$blog_s = $wpdb->esc_like( $s );
+			$blog_s = addcslashes( $s, '_%\\' );
 		}
 		$query .= $wpdb->prepare( " AND  ( {$wpdb->blogs}.path LIKE %s )", $blog_s );
 	}
