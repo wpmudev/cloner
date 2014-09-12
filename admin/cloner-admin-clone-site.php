@@ -167,6 +167,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		);
 
 		add_meta_box( 'cloner-destination', __( 'Destination', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'destination_meta_box' ), 'cloner', 'normal' );
+		add_meta_box( 'cloner-blog-title', __( 'Blog Title', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'blog_title_meta_box' ), 'cloner', 'normal' );
 
 		if ( ! empty( $additional_tables ) && $blog_id == 1 )
 			add_meta_box( 'cloner-advanced', __( 'Advanced Options', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'advanced_options_meta_box' ), 'cloner', 'normal' );
@@ -178,6 +179,11 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		global $current_site;
 
 		include_once( 'views/meta-boxes/destination.php' );
+	}
+
+	public function blog_title_meta_box() {
+
+		include_once( 'views/meta-boxes/blog-title.php' );
 	}
 
 	public function advanced_options_meta_box() {
@@ -226,6 +232,8 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		}
 
 		$selection = empty( $_REQUEST['cloner-clone-selection'] ) ? false : $_REQUEST['cloner-clone-selection'];
+		$blog_title_selection = empty( $_REQUEST['cloner_blog_title'] ) ? 'clone' : $_REQUEST['cloner_blog_title'];
+		$new_blog_title = ! empty( $_REQUEST['replace_blog_title'] ) ? $_REQUEST['replace_blog_title'] : 0;
 
 		$args = array();
 
@@ -262,6 +270,11 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 					add_settings_error( 'cloner', 'source_blog_not_exist', __( 'The blog already exists', WPMUDEV_CLONER_LANG_DOMAIN ) );
 					return;
 				}
+
+				if ( 'clone' == $blog_title_selection ) {
+					$new_blog_title = $blog_details->blogname;
+				}
+				
 
 				do_action( 'wpmudev_cloner_pre_clone_actions', $selection, $blog_id, $args, false );
 				$errors = get_settings_errors( 'cloner' );
@@ -321,6 +334,14 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 				if ( ! empty( $errors ) )
 					return;
 
+				if ( 'clone' == $blog_title_selection ) {
+					$new_blog_title = $blog_details->blogname;
+				}
+				elseif ( 'keep' == $blog_title_selection ) {
+					$new_blog_title = $destination_blog_details->blogname;
+				}
+
+
 		        if ( ! isset( $_REQUEST['confirm'] ) ) {
 		        	// Display a confirmation screen.
 		        	$back_url = add_query_arg(
@@ -344,6 +365,8 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 				break;
 			}
 		}
+
+		$args['new_blog_title'] = empty( $new_blog_title ) ? false : $new_blog_title;
 
 	
 		// New Blog Templates integration
@@ -386,7 +409,8 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
         global $wpdb;
 
         $defaults = array(
-            'override' => false
+            'override' => false,
+            'new_blog_title' => false
         );
         $args = wp_parse_args( $args, $defaults );
         extract( $args );
@@ -407,8 +431,10 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
         $source_blog_details = get_blog_details( $source_blog_id );
 
+        $blog_title = empty( $new_blog_title ) ? $source_blog_details->blogname : $new_blog_title;
+
         // Update the blog name
-        update_blog_option( $new_blog_id, 'blogname', $source_blog_details->blogname );
+        update_blog_option( $new_blog_id, 'blogname', $blog_title );
 
         if ( is_main_site( $source_blog_id ) || $source_blog_id === 1 )
         	add_action( 'copier_set_copier_args', array( $this, 'set_copier_tables_for_main_site' ), 1 );

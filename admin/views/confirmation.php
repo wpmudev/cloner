@@ -31,6 +31,8 @@ nocache_headers();
 		<input type="hidden" name="blog_id" value="<?php echo $blog_id; ?>" />
 		<input type="hidden" name="clone-site-submit" value="true" />
 		<input type="hidden" name="cloner-clone-selection" value="replace" />
+		<input type="hidden" name="cloner_blog_title" value="<?php echo $blog_title_selection; ?>" />
+		<input type="hidden" name="replace_blog_title" value="<?php echo $new_blog_title; ?>" />
 		<?php wp_nonce_field( 'clone-site-' . $blog_id, '_wpnonce_clone-site' ); ?>
 
 		<?php submit_button( __( 'Continue', WPMUDEV_CLONER_LANG_DOMAIN ), 'primary', 'confirm', false ); ?>

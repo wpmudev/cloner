@@ -94,13 +94,23 @@
 			}
 
 			$( 'input[name="blog_create"]' ).click( function (e ) {
-				$('input[type="radio"]').attr('checked', false );
+				$('input[name="cloner-clone-selection"]').attr('checked', false );
 				$('#cloner-create' ).attr('checked', true );
+				set_cloner_blog_title_option( 'create' );
 			});
 
 			$( 'input[name="blog_replace_autocomplete"]' ).click( function (e ) {
-				$('input[type="radio"]').attr('checked', false );
+				$('input[name="cloner-clone-selection"]').attr('checked', false );
 				$('#cloner-replace' ).attr('checked', true );
+				set_cloner_blog_title_option( 'replace' );
+			});
+
+			$('input[name="replace_blog_title"]').click(function() {
+				$('#cloner-replace-blog-title').attr('checked',true);
+			});
+
+			$('input[name="cloner-clone-selection"]').change(function() {
+				set_cloner_blog_title_option( $(this).val() );
 			});
 
 			$( 'input[name="blog_replace_autocomplete"]' ).autocomplete({
@@ -156,6 +166,20 @@
 			<?php endif; ?>
 		});
 	})( jQuery );
+
+	function set_cloner_blog_title_option( selection ) {
+		if ( 'create' == selection ) {
+			if ( jQuery('#cloner-keep-blog-title').attr( 'checked' ) ) {
+				jQuery('#cloner-keep-blog-title').attr( 'checked', false );
+				jQuery('#cloner-clone-blog-title').attr( 'checked', true );
+			}
+			jQuery('#cloner-keep-blog-title').attr('disabled', true );
+
+		}
+		else {
+			jQuery('#cloner-keep-blog-title').attr('disabled', false );
+		}
+	}
 
 
 	function cloner_load_multiselector() {
