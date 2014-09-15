@@ -167,7 +167,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		);
 
 		add_meta_box( 'cloner-destination', __( 'Destination', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'destination_meta_box' ), 'cloner', 'normal' );
-		add_meta_box( 'cloner-blog-title', __( 'Blog Title', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'blog_title_meta_box' ), 'cloner', 'normal' );
+		add_meta_box( 'cloner-options', __( 'Options', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'options_meta_box' ), 'cloner', 'normal' );
 
 		if ( ! empty( $additional_tables ) && $blog_id == 1 )
 			add_meta_box( 'cloner-advanced', __( 'Advanced Options', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'advanced_options_meta_box' ), 'cloner', 'normal' );
@@ -181,9 +181,12 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		include_once( 'views/meta-boxes/destination.php' );
 	}
 
-	public function blog_title_meta_box() {
+	public function options_meta_box() {
+		$blog_id = absint( $_REQUEST['blog_id'] );
+		$blog_public = get_blog_option( $blog_id, 'blog_public' );
+		$blog_public = $blog_public == '1' ? true : false;
 
-		include_once( 'views/meta-boxes/blog-title.php' );
+		include_once( 'views/meta-boxes/options.php' );
 	}
 
 	public function advanced_options_meta_box() {
@@ -341,6 +344,10 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 					$new_blog_title = $destination_blog_details->blogname;
 				}
 
+				$blog_public = false;
+				if ( isset( $_REQUEST['cloner_blog_public'] ) )
+					$blog_public = true;
+
 
 		        if ( ! isset( $_REQUEST['confirm'] ) ) {
 		        	// Display a confirmation screen.
@@ -439,10 +446,21 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
         if ( is_main_site( $source_blog_id ) || $source_blog_id === 1 )
         	add_action( 'copier_set_copier_args', array( $this, 'set_copier_tables_for_main_site' ), 1 );
 
+        add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ) );
+
         // And set copier arguments
         $result = copier_set_copier_args( $source_blog_id, $new_blog_id );
 
         return $new_blog_id;
+    }
+
+    public function set_copier_args( $args ) {
+    	if ( isset( $_REQUEST['cloner_blog_public'] ) )
+    		$args['blog_public'] = '0';
+    	else
+    		$args['blog_public'] = '1';
+
+    	return $args;
     }
 
     /**

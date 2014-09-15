@@ -81,6 +81,7 @@ class WPMUDEV_Cloner {
 
 	private function includes() {
 		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'copier/copier.php' );
+		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'copier-filters.php' );
 		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'helpers/settings.php' );
 
 		//load dashboard notice
