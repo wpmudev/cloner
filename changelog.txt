@@ -2,13 +2,23 @@ Plugin Name: Cloner
 Author: WPMU DEV
 Tags: multisite plugin, wordpress plugin, wordpress multisite, multisite, new blogs and users
 Requires at least: 3.8
-Tested up to: 3.9.2
+Tested up to: 3.4
 Stable tag: 1.2
 
 
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+
+1.4 - 2014-09-15
+----------------------------------------------------------------------
+- New: New option to override or keep the cloned site name
+- New: New option to select the cloned site privacy
+- New: Ultimate Shortcodes Integration.
+- New: Custom Sidebars Pro integration.
+- Enhanced: Posts/Pages/CPTs and Attachments IDs are now preserved in the cloned site
+- Enhanced: Menus are now cloned one by one to avoid timeouts.
+- Minor bugs fixes
 
 1.3 - 2014-09-08
 ----------------------------------------------------------------------
