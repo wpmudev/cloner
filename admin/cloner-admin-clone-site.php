@@ -172,6 +172,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		if ( ! empty( $additional_tables ) && $blog_id == 1 )
 			add_meta_box( 'cloner-advanced', __( 'Advanced Options', WPMUDEV_CLONER_LANG_DOMAIN), array( $this, 'advanced_options_meta_box' ), 'cloner', 'normal' );
 
+		do_action( 'wpmudev_cloner_clone_site_screen' );
 		include_once( 'views/clone-site.php' );
 	}
 
