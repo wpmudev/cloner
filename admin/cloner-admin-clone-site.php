@@ -241,8 +241,6 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
 		$args = array();
 
-		$settings = wpmudev_cloner_get_settings();
-
 		if ( $blog_id === 1 ) {
 			$additional_tables_selected = empty( $_REQUEST['additional_tables'] ) ? array() : $_REQUEST['additional_tables'];
 			update_site_option( 'cloner_main_site_tables_selected', $additional_tables_selected );

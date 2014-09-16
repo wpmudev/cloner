@@ -11,7 +11,7 @@ function wpmudev_cloner_get_settings() {
 	if ( ! $settings )
 		$settings = array();
 
-	return wp_parse_args( $settings, $defaults );
+	return apply_filters( 'wpmudev_cloner_settings', wp_parse_args( $settings, $defaults ) );
 }
 
 function wpmudev_cloner_update_settings( $new_settings ) {
