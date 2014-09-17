@@ -161,5 +161,3 @@ class WPMUDEV_Cloner {
 
 global $wpmudev_cloner;
 $wpmudev_cloner = new WPMUDEV_Cloner();
-
-
