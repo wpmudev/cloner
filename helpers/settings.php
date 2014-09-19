@@ -23,7 +23,7 @@ function wpmudev_cloner_update_settings( $new_settings ) {
 	// the order is important!
 	usort( $to_copy, 'wpmudev_cloner_order_settings_array' );
 	$settings['to_copy'] = $to_copy;
-	//var_dump($settings['to_copy']);
+
 	update_site_option( 'wpmudev_cloner_settings', $settings );
 }
 
