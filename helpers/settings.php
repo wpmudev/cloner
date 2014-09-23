@@ -46,6 +46,7 @@ function wpmudev_cloner_get_default_settings() {
 	return array( 
 		'to_copy' => array(
 			'settings',
+			'widgets',
 			'posts',
 			'pages',
 			'cpts',
