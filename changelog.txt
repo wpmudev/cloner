@@ -10,6 +10,18 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+1.5 - 2014-10-01
+----------------------------------------------------------------------
+- Fixed: Settings>Reading options were not preserved.
+- Fixed: Images links were not replaced correctly in some cases.
+- Fixed: Privacy settings were not copied correctly.
+- Fixed: Header/Background adn context meta for attachments were not copied.
+- Enhanced: Widgets are now copied separate to avoid some cache issues.
+- Enhanced: SSL Verify parameter removed when copying images.
+- Enhanced: Better UI styles.
+- Enhanced: Added PHP 5.3 support.
+- Enhanced: Added more filters.
+
 1.4 - 2014-09-15
 ----------------------------------------------------------------------
 - New: New option to override or keep the cloned site name
