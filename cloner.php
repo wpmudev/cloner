@@ -5,7 +5,7 @@ Plugin URI: https://premium.wpmudev.org/project/cloner
 Description: Clone sites in a network installation
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
-Version: 1.5.1
+Version: 1.5.2
 Network: true
 Text Domain: wpmudev-cloner
 Domain Path: lang
@@ -76,7 +76,7 @@ class WPMUDEV_Cloner {
 			define( 'WPMUDEV_COPIER_LANG_DOMAIN', 'wpmudev-cloner' );
 
 		if ( ! defined( 'WPMUDEV_CLONER_VERSION' ) )
-			define( 'WPMUDEV_CLONER_VERSION', '1.5.1' );
+			define( 'WPMUDEV_CLONER_VERSION', '1.5.2' );
 	}
 
 	private function includes() {
@@ -134,7 +134,7 @@ class WPMUDEV_Cloner {
 
 		$to_copy = $option['to_copy'];
 		foreach ( $to_copy as $to_copy_option => $value ) {
-			if ( ! in_array( $to_copy_option, $settings['to_copy'] ) )
+			if ( ! in_array( $to_copy_option, $settings['to_copy'] ) && $to_copy_option != 'widgets' )
 				unset( $option['to_copy'][ $to_copy_option ] );
 		}
 
@@ -161,4 +161,6 @@ class WPMUDEV_Cloner {
 
 global $wpmudev_cloner;
 $wpmudev_cloner = new WPMUDEV_Cloner();
+
+
 
