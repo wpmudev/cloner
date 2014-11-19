@@ -46,6 +46,8 @@ class WPMUDEV_Cloner {
 
 		add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ), 10, 3 );
 
+		add_action( 'admin_bar_menu', array( $this, 'add_admin_bar_link' ), 40 );
+
 		if ( is_network_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 			require_once( WPMUDEV_CLONER_PLUGIN_DIR . 'admin/cloner-admin-settings.php' );
 			add_action( 'plugins_loaded', array( 'WPMUDEV_Cloner_Admin_Settings', 'get_instance' ) );
@@ -157,10 +159,33 @@ class WPMUDEV_Cloner {
 		update_site_option( 'wpmudev_cloner_version', WPMUDEV_CLONER_VERSION );
 	}
 
+	public function add_admin_bar_link() {
+		global $wp_admin_bar;
+
+		if ( ! current_user_can( 'manage_network' ) )
+			return;
+
+		if ( is_network_admin() )
+			return;
+
+		$url = network_admin_url( 'index.php' );
+		$url = add_query_arg(
+			array(
+				'page' => 'clone_site',
+				'blog_id' => get_current_blog_id()
+			),
+			$url
+		);
+
+		$wp_admin_bar->add_menu( array(
+			'parent' => 'site-name',
+			'id'     => 'clone-site',
+			'title'  => __( 'Clone Site', WPMUDEV_CLONER_LANG_DOMAIN ),
+			'href'   => $url,
+		) );
+	}
+
 }
 
 global $wpmudev_cloner;
 $wpmudev_cloner = new WPMUDEV_Cloner();
-
-
-
