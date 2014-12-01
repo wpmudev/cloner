@@ -5,7 +5,7 @@ Plugin URI: https://premium.wpmudev.org/project/cloner
 Description: Clone sites in a network installation
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
-Version: 1.5.2
+Version: 1.6
 Network: true
 Text Domain: wpmudev-cloner
 Domain Path: lang
@@ -33,6 +33,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 
 class WPMUDEV_Cloner {
+
+	private static $instance = null;
+
+	public static function get_instance() {
+		if ( ! self::$instance )
+			self::$instance = new self();
+
+		return self::$instance;
+	}
 
 	public function __construct() {
 		$this->set_constants();
@@ -78,7 +87,7 @@ class WPMUDEV_Cloner {
 			define( 'WPMUDEV_COPIER_LANG_DOMAIN', 'wpmudev-cloner' );
 
 		if ( ! defined( 'WPMUDEV_CLONER_VERSION' ) )
-			define( 'WPMUDEV_CLONER_VERSION', '1.5.2' );
+			define( 'WPMUDEV_CLONER_VERSION', '1.6' );
 	}
 
 	private function includes() {
@@ -159,6 +168,9 @@ class WPMUDEV_Cloner {
 		update_site_option( 'wpmudev_cloner_version', WPMUDEV_CLONER_VERSION );
 	}
 
+	/**
+	 * Add a "Clone Site" link in admin bar for Super Admins
+	 */
 	public function add_admin_bar_link() {
 		global $wp_admin_bar;
 
@@ -187,5 +199,8 @@ class WPMUDEV_Cloner {
 
 }
 
-global $wpmudev_cloner;
-$wpmudev_cloner = new WPMUDEV_Cloner();
+function wpmudev_cloner() {
+	return WPMUDEV_Cloner::get_instance();
+}
+
+wpmudev_cloner();

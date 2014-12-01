@@ -2,13 +2,19 @@ Plugin Name: Cloner
 Author: WPMU DEV
 Tags: multisite plugin, wordpress plugin, wordpress multisite, multisite, new blogs and users
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.5.1
+Tested up to: 4.1
+Stable tag: 1.6
 
 
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+
+1.6 - 2014-12-01
+----------------------------------------------------------------------
+- Enhancement: Terms are now inserted trying to respect the source blog term ID
+- Enhancement: Added new hooks
+- Fixed: If "Update dates" parameter was passed to the posts copier, the dates were not being updated
 
 1.5.2 - 2014-11-03
 ----------------------------------------------------------------------
