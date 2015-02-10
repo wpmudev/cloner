@@ -396,11 +396,15 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
 		// Set everything needed to clone the site
 		$result = $this->pre_clone_actions( $blog_id, $domain, $path, $args );
-
+	
 		if ( is_integer( $result ) ) {
 			$redirect_to = get_admin_url( $result );
 			wp_redirect( $redirect_to );	
 			exit;
+		}
+
+		if ( is_wp_error( $result ) )  {
+			add_settings_error( 'cloner', 'error_creating_site', $result->get_error_message() );
 		}
 
 	}
