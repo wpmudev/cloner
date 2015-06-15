@@ -44,10 +44,6 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_javascript' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_css' ) );
 
-		// Add an action link pointing to the options page.
-		$plugin_basename = plugin_basename( plugin_dir_path( realpath( dirname( __FILE__ ) ) ) . $this->plugin_slug . '.php' );
-		add_filter( 'network_admin_plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
-
 		if ( ! defined( 'WPMUDEV_CLONER_ASSETS_URL' ) )
 			define( 'WPMUDEV_CLONER_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets' );
 
@@ -77,9 +73,11 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 	 * Add a new action link in the Network Sites Page that clones a site
 	 */
 	public function add_site_action_link( $links, $blog_id ) {
-		$clone_url = add_query_arg( 'blog_id', $blog_id, network_admin_url( 'index.php?page=clone_site' ) );
-
-		$links['clone'] = '<span class="clone"><a href="' . $clone_url . '">' . __( 'Clone', WPMUDEV_CLONER_LANG_DOMAIN ) . '</a></span>';
+		if ( cloner_is_blog_clonable( $blog_id ) ) {
+			$clone_url = add_query_arg( 'blog_id', $blog_id, network_admin_url( 'index.php?page=clone_site' ) );
+			$links['clone'] = '<span class="clone"><a href="' . $clone_url . '">' . __( 'Clone', WPMUDEV_CLONER_LANG_DOMAIN ) . '</a></span>';	
+		}
+		
 
 		return $links;
 	}
@@ -116,7 +114,31 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
 		// Sanitize the form when the menu is loaded
 		add_action( 'load-' . $this->plugin_screen_hook_suffix, array( $this, 'sanitize_clone_form' ) );
+		add_action( 'load-' . $this->plugin_screen_hook_suffix, array( $this, 'validate_blog_to_clone' ) );
 
+	}
+
+	function validate_blog_to_clone() {
+		$blog_id = absint( $_REQUEST['blog_id'] );
+		$blog_details = get_blog_details( $blog_id );
+
+		if ( ! $blog_details ) {
+			$message = sprintf( 
+				__( 'The blog that you are trying to copy does not exist, <a href="%s">Try another</a>.', WPMUDEV_CLONER_LANG_DOMAIN ), 
+				network_admin_url( 'sites.php' ) 
+			); 
+			wp_die( $message );
+		}
+
+		if ( ! cloner_is_blog_clonable( $blog_id ) ) {
+			$message = sprintf( 
+				__( 'The site that you are trying to copy (%s) cannot be cloned [ID %d], <a href="%s">Try another</a>.', WPMUDEV_CLONER_LANG_DOMAIN ), 
+				$blog_details->blogname, 
+				$blog_id,
+				network_admin_url( 'sites.php' )
+			);
+			wp_die( $message );
+		}
 	}
 
 	/**
@@ -130,8 +152,6 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		$blog_id = absint( $_REQUEST['blog_id'] );
 		$blog_details = get_blog_details( $blog_id );
 
-		if ( ! $blog_details )
-			wp_die( __( 'The blog that you are trying to copy does not exist', WPMUDEV_CLONER_LANG_DOMAIN ) );
 
 		$domain = '';
 		$subdomain = '';
@@ -198,21 +218,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		include_once( 'views/meta-boxes/advanced.php' );
 	}
 
-	/**
-	 * Add settings action link to the plugins page.
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_action_links( $links ) {
-
-		return array_merge(
-			array(
-				'settings' => '<a href="' . network_admin_url( 'settings.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', WPMUDEV_CLONER_LANG_DOMAIN ) . '</a>'
-			),
-			$links
-		);
-
-	}		
+	
     	
 
 

@@ -115,13 +115,18 @@ class WPMUDEV_Cloner_Admin_Settings {
 	 * @since    1.0.0
 	 */
 	public function add_action_links( $links ) {
+		$menu_page_url = menu_page_url( $this->plugin_slug );
 
-		return array_merge(
-			array(
-				'settings' => '<a href="' . network_admin_url( 'settings.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', WPMUDEV_CLONER_LANG_DOMAIN ) . '</a>'
-			),
-			$links
-		);
+		if ( $menu_page_url ) {
+			$links = array_merge(
+				array(
+					'settings' => '<a href="' . network_admin_url( 'settings.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', WPMUDEV_CLONER_LANG_DOMAIN ) . '</a>'
+				),
+				$links
+			);	
+		}
+
+		return $links;
 
 	}
 
