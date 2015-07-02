@@ -372,8 +372,16 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 				break;
 			}
 			default: {
-				add_settings_error( 'cloner', 'source_blog_not_exist', __( 'Please, select an option', WPMUDEV_CLONER_LANG_DOMAIN ) );
-				return;
+                $result = apply_filters( 'wpmudev_cloner_pre_clone_actions_switch_default', false, $selection );
+
+                if ( ! $result ) {
+                    $errors = get_settings_errors( 'cloner' );
+                    if ( empty( $errors ) )
+                        add_settings_error( 'cloner', 'source_blog_not_exist', __( 'Please, select an option', WPMUDEV_CLONER_LANG_DOMAIN ) );
+
+                    return;
+                }
+
 				break;
 			}
 		}

@@ -91,6 +91,7 @@ class WPMUDEV_Cloner {
 	}
 
 	private function includes() {
+		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'integration/integration.php' );
 		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'copier/copier.php' );
 		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'copier-filters.php' );
 		include_once( WPMUDEV_CLONER_PLUGIN_DIR . 'helpers/general.php' );
@@ -116,6 +117,7 @@ class WPMUDEV_Cloner {
 	}
 
 	public function display_installation_admin_notice() {
+
 		if ( is_super_admin() && ! get_site_option( 'wpmudev_cloner_installation_notice_done' ) ) {
 			$dismiss_url = add_query_arg( 'cloner_dismiss_install_notice', 'true' );
 			?>
@@ -151,13 +153,13 @@ class WPMUDEV_Cloner {
 		}
 
 		return $option;
-	}  
-	
+	}
+
 
 	public function maybe_upgrade() {
 		$current_version_saved = get_site_option( 'wpmudev_cloner_version', '1.1' );
 
-		if ( $current_version_saved === WPMUDEV_CLONER_VERSION )
+		if ( WPMUDEV_CLONER_VERSION === $current_version_saved)
 			return;
 
 		if ( version_compare( $current_version_saved, '1.2', '<' ) ) {

@@ -6,11 +6,11 @@
 		</label>
 	</p>
 	<?php if ( is_subdomain_install() ): ?>
-		<input name="blog_create" type="text" class="regular-text" title="<?php esc_attr_e( 'Domain' ) ?>" placeholder="<?php echo esc_attr( __( 'Type your site name here...', WPMUDEV_CLONER_LANG_DOMAIN ) ); ?>"/><br/>
+		<input id="blog_create" name="blog_create" type="text" class="regular-text" title="<?php esc_attr_e( 'Domain' ) ?>" placeholder="<?php echo esc_attr( __( 'Type your site name here...', WPMUDEV_CLONER_LANG_DOMAIN ) ); ?>"/><br/>
 		<span class="no-break">.<?php echo preg_replace( '|^www\.|', '', $current_site->domain ); ?></span>
 	<?php else: ?>
 		<?php echo $current_site->domain . $current_site->path ?><br/>
-		<input name="blog_create" class="regular-text" type="text" title="<?php esc_attr_e( 'Domain' ) ?>" placeholder="<?php echo esc_attr( __( 'Type your site name here...', WPMUDEV_CLONER_LANG_DOMAIN ) ); ?>"/>
+		<input id="blog_create" name="blog_create" class="regular-text" type="text" title="<?php esc_attr_e( 'Domain' ) ?>" placeholder="<?php echo esc_attr( __( 'Type your site name here...', WPMUDEV_CLONER_LANG_DOMAIN ) ); ?>"/>
 	<?php endif; ?>
 	<p class="description"><?php _e( 'Only lowercase letters (a-z) and numbers are allowed.' ); ?></p>
 

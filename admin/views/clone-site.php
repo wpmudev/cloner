@@ -93,7 +93,7 @@
 				position.at = 'right bottom';
 			}
 
-			$( 'input[name="blog_create"]' ).click( function (e ) {
+			$( 'input#blog_create' ).click( function (e ) {
 				$('input[name="cloner-clone-selection"]').attr('checked', false );
 				$('#cloner-create' ).attr('checked', true );
 				set_cloner_blog_title_option( 'create' );

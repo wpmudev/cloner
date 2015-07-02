@@ -115,7 +115,7 @@ class WPMUDEV_Cloner_Admin_Settings {
 	 * @since    1.0.0
 	 */
 	public function add_action_links( $links ) {
-		$menu_page_url = menu_page_url( $this->plugin_slug );
+		$menu_page_url = menu_page_url( $this->plugin_slug, false );
 
 		if ( $menu_page_url ) {
 			$links = array_merge(
