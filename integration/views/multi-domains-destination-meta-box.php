@@ -16,7 +16,7 @@ if ( count( $domains ) > 1 ) {
     $the_domain = '<select id="domain" name="domain">';
     foreach ( $domains as $_domain ) {
         if ( $super_admin || ( $_domain['domain_status'] == 'restricted' && $show_restricted_domains ) || $_domain['domain_status'] != 'private' ) {
-            $the_domain .= '<option value="' . $_domain['domain_name'] . '" ' . selected( $_domain['domain_name'], $posted_domain, false ) . '>' . $_domain['domain_name'] . '</option>';
+            $the_domain .= '<option value="' . $_domain['domain_name'] . '" ' . selected( $_domain['domain_name'], $posted_domain, false ) . '>.' . $_domain['domain_name'] . '</option>';
         }
     }
     $the_domain .= '</select>';

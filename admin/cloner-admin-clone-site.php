@@ -372,15 +372,22 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 				break;
 			}
 			default: {
-                $result = apply_filters( 'wpmudev_cloner_pre_clone_actions_switch_default', false, $selection );
+                $result = apply_filters( 'wpmudev_cloner_pre_clone_actions_switch_default', false, $selection, $blog_title_selection, $new_blog_title, $blog_id, $blog_details );
 
-                if ( ! $result ) {
-                    $errors = get_settings_errors( 'cloner' );
-                    if ( empty( $errors ) )
-                        add_settings_error( 'cloner', 'source_blog_not_exist', __( 'Please, select an option', WPMUDEV_CLONER_LANG_DOMAIN ) );
-
+                if ( is_wp_error( $result ) ) {
+                    add_settings_error('cloner', $result->get_error_code(), $result->get_error_message());
                     return;
                 }
+
+                if ( ! $result )  {
+                    add_settings_error('cloner', 'cloner_error', __( 'Unknown error', WPMUDEV_COPIER_LANG_DOMAIN ) );
+                    return;
+                }
+
+                if ( ! is_array( $result ) )
+                    return;
+
+                extract( $result );
 
 				break;
 			}
@@ -398,18 +405,26 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 
 		$current_site = get_current_site();
 
-		if ( is_subdomain_install() ) {
-			$domain = $domain . '.' . $current_site->domain;
-			$path = '';
-		}
-		else {
-			$path = $current_site->path . $domain . '/'; //$path = '/' . $domain; // Do NOT assume the root to be server root
-			$domain = $current_site->domain;
-		}
+        if ( empty( $new_domain ) ) {
+            if ( is_subdomain_install() ) {
+                $new_domain = $domain . '.' . $current_site->domain;
+            }
+            else {
+                $new_domain = $current_site->domain;
+            }
+        }
 
+        if ( empty( $new_path ) ) {
+            if ( is_subdomain_install() ) {
+                $new_path = '';
+            }
+            else {
+                $new_path = $current_site->path . $new_domain . '/'; //$path = '/' . $domain; // Do NOT assume the root to be server root
+            }
+        }
 
 		// Set everything needed to clone the site
-		$result = $this->pre_clone_actions( $blog_id, $domain, $path, $args );
+		$result = $this->pre_clone_actions( $blog_id, $new_domain, $new_path, $args );
 	
 		if ( is_integer( $result ) ) {
 			$redirect_to = get_admin_url( $result );

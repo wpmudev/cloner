@@ -12,14 +12,32 @@ nocache_headers();
     	wp_admin_css( 'install', true );
     	wp_admin_css( 'ie', true );
     	wp_admin_css( 'buttons', true );
+        wp_admin_css( 'dashicons', true );
     ?>
+    <style>
+        .dashicons-megaphone {
+            font-size:32px;
+            height:32px;
+            width:32px;
+            vertical-align: middle;
+        }
+        h1 {
+            font-size:32px !important;
+        }
+        strong {
+            font-size:20px;
+            display:block;
+            margin:20px 0;
+        }
+    </style>
 </head>
 <body class="wp-core-ui">
 	<form method="post" action="<?php echo network_admin_url( 'index.php?page=clone_site' ); ?>">
+        <h1><?php _e( 'Watch Out!', WPMUDEV_COPIER_LANG_DOMAIN ); ?> <span class="dashicons dashicons-megaphone"></span></h1>
 		<p>
 			<?php 
 				printf( 
-					__( 'You have chosen a URL that already exists. If you choose ‘Continue’, all existing site content and settings on %s will be completely overwritten with content and settings from %s. This change is permanent and can’t be undone, so please be careful. ', WPMUDEV_CLONER_LANG_DOMAIN ), 
+					__( 'You have chosen a URL <u>that already exists</u>. If you choose ‘Continue’, all existing site content and settings on %s will be <u>completely overwritten</u> with content and settings from %s This change is permanent and can’t be undone, so please be careful. ', WPMUDEV_CLONER_LANG_DOMAIN ),
 					'<strong>' . get_site_url( $destination_blog_details->blog_id ) . '</strong>', 
 					'<strong>' . get_site_url( $blog_details->blog_id ) . '</strong>' 
 				); 
