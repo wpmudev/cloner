@@ -2,6 +2,8 @@
 global $multi_dm;
 
 $domains = get_site_option( 'md_domains' );
+$is_subdomain_install = is_subdomain_install();
+
 $the_domain = '';
 if ( count( $domains ) > 1 ) {
     $primary = wp_list_filter( $domains, array( 'domain_name' => DOMAIN_CURRENT_SITE ) );
@@ -16,7 +18,8 @@ if ( count( $domains ) > 1 ) {
     $the_domain = '<select id="domain" name="domain">';
     foreach ( $domains as $_domain ) {
         if ( $super_admin || ( $_domain['domain_status'] == 'restricted' && $show_restricted_domains ) || $_domain['domain_status'] != 'private' ) {
-            $the_domain .= '<option value="' . $_domain['domain_name'] . '" ' . selected( $_domain['domain_name'], $posted_domain, false ) . '>.' . $_domain['domain_name'] . '</option>';
+            $title = $is_subdomain_install ? '.' . $_domain['domain_name'] : $_domain['domain_name'] . '/';
+            $the_domain .= '<option value="' . $_domain['domain_name'] . '" ' . selected( $_domain['domain_name'], $posted_domain, false ) . '>' . $title . '</option>';
         }
     }
     $the_domain .= '</select>';
@@ -27,14 +30,23 @@ if ( count( $domains ) > 1 ) {
 ?>
 
 <div class="cloner-clone-option" id="cloner-create-wrap">
+
     <p>
         <label for="cloner-create">
             <input type="radio" name="cloner-clone-selection" value="create_md" id="cloner-create" class="clone_clone_option"/>
             <?php _e( 'Create a new Site', WPMUDEV_CLONER_LANG_DOMAIN ); ?>
         </label>
     </p>
+
+    <?php if ( ! $is_subdomain_install ): ?>
+        <?php echo $the_domain; ?><br/>
+    <?php endif; ?>
+
     <input id="blog_create" name="blog_create" type="text" class="regular-text" title="<?php esc_attr_e( 'Domain' ) ?>" placeholder="<?php echo esc_attr( __( 'Type your site name here...', WPMUDEV_CLONER_LANG_DOMAIN ) ); ?>"/><br/>
-    <?php echo $the_domain; ?>
+
+    <?php if ( $is_subdomain_install ): ?>
+        <?php echo $the_domain; ?>
+    <?php endif; ?>
     <p class="description"><?php _e( 'Only lowercase letters (a-z) and numbers are allowed.' ); ?></p>
 
 
