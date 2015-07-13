@@ -13,6 +13,7 @@ function cloner_multi_domains_destination_meta_box() {
 }
 
 add_filter( 'wpmudev_cloner_pre_clone_actions_switch_default', 'cloner_multi_domains_process_clone_site_form', 10, 6 );
+
 /**
  * @param $result
  * @param $selection
@@ -82,6 +83,7 @@ function cloner_multi_domains_process_clone_site_form( $result, $selection, $blo
             'new_path' => ''
         );
     }
+
     return false;
 }
 
