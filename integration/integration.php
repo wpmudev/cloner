@@ -41,7 +41,7 @@ function cloner_multi_domains_process_clone_site_form( $result, $selection, $blo
         }
 
         $all_domains = get_site_option( 'md_domains' );
-        $search_domain_results = wp_list_filter( array( 'domain_name' => $domain ) );
+        $search_domain_results = wp_list_filter( $all_domains, array( 'domain_name' => $domain ) );
 
         if ( empty( $search_domain_results ) ) {
             return new WP_Error( 'source_blog_not_exist', __( 'Missing or invalid site address.', WPMUDEV_CLONER_LANG_DOMAIN ) );
@@ -60,11 +60,14 @@ function cloner_multi_domains_process_clone_site_form( $result, $selection, $blo
 
         // Check if the blog exists
         if ( is_subdomain_install() ) {
-            $full_address = $subdomain . '.' . $domain;
-            $blog_exists = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->blogs WHERE domain LIKE %s", '%' . $full_address . '%' ) );
+            $new_domain = $subdomain . '.' . $domain;
+            $new_path = '';
+            $blog_exists = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->blogs WHERE domain LIKE %s", '%' . $new_domain . '%' ) );
         }
         else {
-
+            $new_domain = $domain;
+            $new_path = '/' . $subdomain;
+            $blog_exists = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->blogs WHERE domain LIKE %s AND path = %s", '%' . $new_domain . '%', $new_path . '/' ) );
         }
 
         if ( ! empty( $blog_exists ) ) {
@@ -79,12 +82,25 @@ function cloner_multi_domains_process_clone_site_form( $result, $selection, $blo
 
         return array(
             'new_blog_title' => $new_blog_title,
-            'new_domain' => $full_address,
-            'new_path' => ''
+            'new_domain' => $new_domain,
+            'new_path' => $new_path
         );
     }
 
     return false;
+}
+
+if ( ! is_subdomain_install() ) {
+    add_filter( 'cloner_autocomplete_sites', 'cloner_multi_domains_autocomplete_sites' );
+    function cloner_multi_domains_autocomplete_sites( $sites ) {
+        global $wpdb;
+        foreach ( $sites as $key => $site ) {
+            $domain = $wpdb->get_var( $wpdb->prepare( "SELECT domain FROM $wpdb->blogs WHERE blog_id = %d", $site['blog_id'] ) );
+            $sites[ $key ]['blog_name'] = $site['blog_name'] . " ( $domain )";
+        }
+        return $sites;
+    }
+
 }
 
 
