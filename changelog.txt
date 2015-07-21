@@ -2,12 +2,16 @@ Plugin Name: Cloner
 Author: WPMU DEV
 Tags: multisite plugin, wordpress plugin, wordpress multisite, multisite, new blogs and users
 Requires at least: 3.8
-Tested up to: 4.1
+Tested up to: 4.2
 
 
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+
+1.6.2 - 2015-07-21
+----------------------------------------------------------------------
+- Enhancement: Added WooCommerce integration
 
 1.6.2 - 2015-07-16
 ----------------------------------------------------------------------
