@@ -419,7 +419,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
                 $new_path = '';
             }
             else {
-                $new_path = '/' . trailingslashit( $domain ); //$path = '/' . $domain; // Do NOT assume the root to be server root
+	            $new_path = $current_site->path . trailingslashit( $domain ); //$path = '/' . $domain; // Do NOT assume the root to be server root
             }
         }
 
