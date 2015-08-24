@@ -65,6 +65,6 @@ function cloner_autocomplete_site() {
 		);
 	}
 
-    $return = apply_filters( 'cloner_autocomplete_sites', $return );
+    	$return = apply_filters( 'cloner_autocomplete_sites', $return );
 	wp_die( json_encode( $return ) );
 }
