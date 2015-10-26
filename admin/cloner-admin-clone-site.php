@@ -299,10 +299,15 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 					// try to check the blog name
 					$blog_name = isset( $_REQUEST['blog_replace_autocomplete'] ) ? $_REQUEST['blog_replace_autocomplete'] : '';
 					/// Hack for WordPress bug (https://core.trac.wordpress.org/ticket/34450)
-					$temp_domain = $current_site->domain;
-					$current_site->domain = preg_replace( '|^www\.|', '', $current_site->domain );
+					if ( is_subdomain_install() ) {
+						$temp_domain = $current_site->domain;
+						$current_site->domain = preg_replace( '|^www\.|', '', $current_site->domain );
+					}
+
 					$destination_blog_details = get_blog_details( $blog_name );
-					$current_site->domain = $temp_domain;
+
+					if ( is_subdomain_install() )
+						$current_site->domain = $temp_domain;
 
 					if ( empty( $destination_blog_details ) ) {
 						$destination_blog_id = false;
