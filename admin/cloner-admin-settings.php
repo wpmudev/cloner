@@ -96,6 +96,8 @@ class WPMUDEV_Cloner_Admin_Settings {
 	 */
 	public function display_plugin_admin_page() {
 		$to_copy_labels = wpmudev_cloner_get_settings_labels();
+		$to_copy_labels = apply_filters( 'wpmudev_cloner_to_copy_labels_settings', $to_copy_labels );
+
 		$settings = wpmudev_cloner_get_settings();
 
 		$errors = get_settings_errors( 'wpmudev_cloner_settings' );
