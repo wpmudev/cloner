@@ -448,46 +448,44 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 	 * Change the blog Name
 	 */
 	public function pre_clone_actions( $source_blog_id, $domain, $path, $args ) {
-        global $wpdb;
+		global $wpdb;
 
-        $defaults = array(
-            'override' => false,
-            'new_blog_title' => false
-        );
-        $args = wp_parse_args( $args, $defaults );
-        extract( $args );
+		$defaults = array(
+		    'override' => false,
+		    'new_blog_title' => false
+		);
+		$args = wp_parse_args( $args, $defaults );
+		extract( $args );
 
-        $blog_details = get_blog_details( $override );
-        if ( empty( $blog_details ) )
-            $override = false;
+		$source_blog_details = get_blog_details( $source_blog_id );
 
-        $new_blog_id = $override;
-        if ( ! $override ) {
-        	// Not overrriding, let's create an  empty blog
-            $new_blog_id = create_empty_blog( $domain, $path, '' );            
-        }
+		$blog_title = empty( $new_blog_title ) ? $source_blog_details->blogname : $new_blog_title;
+
+		$blog_details = get_blog_details( $override );
+		if ( empty( $blog_details ) )
+		    $override = false;
+
+		$new_blog_id = $override;
+		if ( ! $override ) {
+			// Not overrriding, let's create an  empty blog
+		    $new_blog_id = wpmu_create_blog( $domain, $path, $blog_title, get_current_user_id() );
+		}
 
 
-        if ( ! is_integer( $new_blog_id ) )
-            return new WP_Error( 'create_empty_blog', strip_tags( $new_blog_id ) );
+		if ( ! is_integer( $new_blog_id ) )
+		    return new WP_Error( 'create_empty_blog', strip_tags( $new_blog_id ) );
+	       
 
-        $source_blog_details = get_blog_details( $source_blog_id );
+		if ( is_main_site( $source_blog_id ) || $source_blog_id === 1 )
+			add_action( 'copier_set_copier_args', array( $this, 'set_copier_tables_for_main_site' ), 1 );
 
-        $blog_title = empty( $new_blog_title ) ? $source_blog_details->blogname : $new_blog_title;
+		add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ) );
 
-        // Update the blog name
-        update_blog_option( $new_blog_id, 'blogname', $blog_title );
+		// And set copier arguments
+		$result = copier_set_copier_args( $source_blog_id, $new_blog_id );
 
-        if ( is_main_site( $source_blog_id ) || $source_blog_id === 1 )
-        	add_action( 'copier_set_copier_args', array( $this, 'set_copier_tables_for_main_site' ), 1 );
-
-        add_filter( 'copier_set_copier_args', array( $this, 'set_copier_args' ) );
-
-        // And set copier arguments
-        $result = copier_set_copier_args( $source_blog_id, $new_blog_id );
-
-        return $new_blog_id;
-    }
+		return $new_blog_id;
+	}
 
     public function set_copier_args( $args ) {
     	if ( isset( $_REQUEST['cloner_blog_public'] ) )
