@@ -31,9 +31,6 @@ class WPMUDEV_Cloner_Admin_Settings {
 	 */
 	private function __construct() {
 
-		if ( ! is_super_admin() )
-			return;
-
 		$this->plugin_slug = 'cloner';
 
 		// Add the options page and menu item.
@@ -56,10 +53,6 @@ class WPMUDEV_Cloner_Admin_Settings {
 	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
-
-		if ( ! is_super_admin() ) {
-			return false;
-		}
 
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance )
