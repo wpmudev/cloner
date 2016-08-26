@@ -2,12 +2,16 @@ Plugin Name: Cloner
 Author: Ignacio Cruz, Ricardo Freitas, Panos Lyrakis
 Tags: multisite plugin, wordpress plugin, wordpress multisite, multisite, new blogs and users
 Requires at least: 3.8
-Tested up to: 4.3
+Tested up to: 4.6
 
 
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+
+1.7.4 - 2016-08-26
+----------------------------------------------------------------------
+- Fixed: A default user was always created even if Users option was unselected in Cloner Settings.
 
 1.7.3 - 2016-08-19
 ----------------------------------------------------------------------

@@ -468,13 +468,14 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		$new_blog_id = $override;
 		if ( ! $override ) {
 			// Not overrriding, let's create an  empty blog
-		    $new_blog_id = wpmu_create_blog( $domain, $path, $blog_title, get_current_user_id() );
+			$new_blog_id = $this->create_empty_blog( $domain, $path );
 		}
 
 
-		if ( ! is_integer( $new_blog_id ) )
-		    return new WP_Error( 'create_empty_blog', strip_tags( $new_blog_id ) );
-	       
+		if ( ! is_integer( $new_blog_id ) ) {
+			return new WP_Error( 'create_empty_blog', strip_tags( $new_blog_id ) );
+		}
+
 
 		if ( is_main_site( $source_blog_id ) || $source_blog_id === 1 )
 			add_action( 'copier_set_copier_args', array( $this, 'set_copier_tables_for_main_site' ), 1 );
@@ -485,6 +486,28 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		$result = copier_set_copier_args( $source_blog_id, $new_blog_id );
 
 		return $new_blog_id;
+	}
+
+	function create_empty_blog( $domain, $path, $site_id = 1 ) {
+		if ( empty($path) )
+			$path = '/';
+
+		// Check if the domain has been used already. We should return an error message.
+		if ( domain_exists($domain, $path, $site_id) )
+			return false;
+
+		// Need to back up wpdb table names, and create a new wp_blogs entry for new blog.
+		// Need to get blog_id from wp_blogs, and create new table names.
+		// Must restore table names at the end of function.
+
+		if ( ! $blog_id = insert_blog($domain, $path, $site_id) )
+			return false;
+
+		switch_to_blog($blog_id);
+		install_blog($blog_id);
+		restore_current_blog();
+
+		return $blog_id;
 	}
 
     public function set_copier_args( $args ) {
