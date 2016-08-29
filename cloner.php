@@ -87,7 +87,7 @@ class WPMUDEV_Cloner {
 			define( 'WPMUDEV_COPIER_LANG_DOMAIN', 'wpmudev-cloner' );
 
 		if ( ! defined( 'WPMUDEV_CLONER_VERSION' ) )
-			define( 'WPMUDEV_CLONER_VERSION', '1.7.4' );
+			define( 'WPMUDEV_CLONER_VERSION', '1.7.5' );
 	}
 
 	private function includes() {
