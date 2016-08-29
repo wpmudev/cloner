@@ -476,6 +476,9 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 			return new WP_Error( 'create_empty_blog', strip_tags( $new_blog_id ) );
 		}
 
+		if ( $blog_title ) {
+			update_blog_option( $new_blog_id, 'blogname', $blog_title );
+		}
 
 		if ( is_main_site( $source_blog_id ) || $source_blog_id === 1 )
 			add_action( 'copier_set_copier_args', array( $this, 'set_copier_tables_for_main_site' ), 1 );
