@@ -426,6 +426,8 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
             }
         }
 
+        $args['additional_tables'] = $additional_tables;
+
 		// Set everything needed to clone the site
 		$result = $this->pre_clone_actions( $blog_id, $new_domain, $new_path, $args );
 	
