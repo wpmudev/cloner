@@ -112,8 +112,9 @@ class WPMUDEV_Cloner {
 	}
 
 	public function init_plugin() {
-		if ( is_network_admin() && isset( $_GET['cloner_dismiss_install_notice'] ) )
+		if ( is_network_admin() && isset( $_GET['cloner_dismiss_install_notice'] ) ) {
 			update_site_option( 'wpmudev_cloner_installation_notice_done', true );
+		}
 	}
 
 	public function display_installation_admin_notice() {
