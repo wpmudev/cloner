@@ -53,10 +53,12 @@ nocache_headers();
 		<input type="hidden" name="replace_blog_title" value="<?php echo $new_blog_title; ?>" />
 
 		<?php $i = 0; ?>
-		<?php foreach ( $additional_tables_selected as $table ): ?>
-			<input type="hidden" name="additional_tables[<?php echo $i; ?>]" value="<?php echo $table; ?>">
-			<?php $i++; ?>
-		<?php endforeach; ?>
+        <?php if ( ! empty( $additional_tables_selected ) && is_array( $additional_tables_selected ) ): ?>
+            <?php foreach ( $additional_tables_selected as $table ): ?>
+                <input type="hidden" name="additional_tables[<?php echo $i; ?>]" value="<?php echo $table; ?>">
+                <?php $i++; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
 		<?php if ( $blog_public ): ?>
 			<input type="hidden" name="cloner_blog_public" value="0" />
