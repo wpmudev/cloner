@@ -1,0 +1,456 @@
+# Copyright (C) 2016 WPMU DEV
+# This file is distributed under the same license as the Cloner package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Cloner 1.7.6\n"
+"Report-Msgid-Bugs-To: https://wpmudev.org\n"
+"POT-Creation-Date: 2016-12-12 11:25:19+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+
+#: admin/cloner-admin-clone-site.php:71
+msgid "Clone"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:101 admin/cloner-admin-clone-site.php:102
+#: admin/views/clone-site.php:2 admin/views/clone-site.php:29 cloner.php:201
+msgid "Clone Site"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:120
+msgid ""
+"The blog that you are trying to copy does not exist, <a href=\"%s\">Try "
+"another</a>."
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:128
+msgid ""
+"The site that you are trying to copy (%s) cannot be cloned [ID %d], <a "
+"href=\"%s\">Try another</a>."
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:182 integration/integration.php:8
+msgid "Destination"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:183
+msgid "Options"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:186
+msgid "Advanced Options"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:234
+msgid "The blog that you are trying to copy does not exist"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:256 integration/integration.php:34
+#: integration/integration.php:40
+msgid "Please, insert a site name"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:265 integration/integration.php:47
+#: integration/integration.php:56
+msgid "Missing or invalid site address."
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:272 integration/integration.php:74
+msgid "The blog already exists"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:315 admin/cloner-admin-clone-site.php:327
+msgid "The site you are trying to replace does not exist"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:320
+msgid "You cannot copy a blog to itself"
+msgstr ""
+
+#: admin/cloner-admin-clone-site.php:386
+msgid "Unknown error"
+msgstr ""
+
+#: admin/cloner-admin-settings.php:74
+msgid "Cloner Settings"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Cloner"
+msgstr ""
+
+#: admin/cloner-admin-settings.php:118 helpers/settings.php:65
+msgid "Settings"
+msgstr ""
+
+#: admin/cloner-admin-settings.php:135
+msgid "You need to check at least one option"
+msgstr ""
+
+#: admin/views/clone-site.php:7
+msgid "Cloning"
+msgstr ""
+
+#: admin/views/clone-site.php:14
+msgid "Choose a different site"
+msgstr ""
+
+#: admin/views/clone-site.php:194
+msgid "Ignore these tables"
+msgstr ""
+
+#: admin/views/clone-site.php:195
+msgid "Copy these tables"
+msgstr ""
+
+#: admin/views/confirmation.php:10
+msgid "Confirm action"
+msgstr ""
+
+#: admin/views/confirmation.php:36
+msgid "Watch Out!"
+msgstr ""
+
+#: admin/views/confirmation.php:40
+msgid ""
+"You have chosen a URL <u>that already exists</u>. If you choose ‘Continue’, "
+"all existing site content and settings on %s will be <u>completely "
+"overwritten</u> with content and settings from %s This change is permanent "
+"and can’t be undone, so please be careful. "
+msgstr ""
+
+#: admin/views/confirmation.php:66
+msgid "Continue"
+msgstr ""
+
+#: admin/views/confirmation.php:67
+msgid "No, please I want to go back"
+msgstr ""
+
+#: admin/views/meta-boxes/advanced.php:1
+msgid ""
+"You have chosen to clone the main blog. Please <strong>select tables you "
+"want cloned</strong>. Beware, network-only tables can take up a lot of "
+"space and a long time to clone."
+msgstr ""
+
+#: admin/views/meta-boxes/destination.php:5
+#: integration/views/multi-domains-destination-meta-box.php:37
+msgid "Create a new Site"
+msgstr ""
+
+#: admin/views/meta-boxes/destination.php:9
+#: admin/views/meta-boxes/destination.php:13
+#: admin/views/meta-boxes/destination.php:30
+#: integration/views/multi-domains-destination-meta-box.php:45
+#: integration/views/multi-domains-destination-meta-box.php:65
+msgid "Domain"
+msgstr ""
+
+#: admin/views/meta-boxes/destination.php:9
+#: admin/views/meta-boxes/destination.php:13
+#: integration/views/multi-domains-destination-meta-box.php:45
+msgid "Type your site name here..."
+msgstr ""
+
+#: admin/views/meta-boxes/destination.php:15
+#: integration/views/multi-domains-destination-meta-box.php:50
+msgid "Only lowercase letters (a-z) and numbers are allowed."
+msgstr ""
+
+#: admin/views/meta-boxes/destination.php:24
+#: integration/views/multi-domains-destination-meta-box.php:59
+msgid "Replace existing Site"
+msgstr ""
+
+#: admin/views/meta-boxes/destination.php:30
+#: integration/views/multi-domains-destination-meta-box.php:65
+msgid "Start writing to search an existing site"
+msgstr ""
+
+#: admin/views/meta-boxes/destination.php:31
+#: integration/views/multi-domains-destination-meta-box.php:66
+msgid "Leave it blank to clone to the main site"
+msgstr ""
+
+#: admin/views/meta-boxes/options.php:1
+msgid "Site Title"
+msgstr ""
+
+#: admin/views/meta-boxes/options.php:2
+msgid "Clone blog title"
+msgstr ""
+
+#: admin/views/meta-boxes/options.php:3
+msgid "Keep the destination blog title"
+msgstr ""
+
+#: admin/views/meta-boxes/options.php:6
+msgid "Overwrite blog title with"
+msgstr ""
+
+#: admin/views/meta-boxes/options.php:12
+msgid "Search Engine Visibility"
+msgstr ""
+
+#: admin/views/meta-boxes/options.php:15
+msgid "Discourage search engines from indexing the cloned site"
+msgstr ""
+
+#: admin/views/settings.php:10
+msgid "Settings updated"
+msgstr ""
+
+#: admin/views/settings.php:16
+msgid "Getting started:"
+msgstr ""
+
+#: admin/views/settings.php:19
+msgid "Navigate to <a href=\"%s\">Network Admin &raquo; Sites</a>"
+msgstr ""
+
+#: admin/views/settings.php:23
+msgid "Hover over any site & click 'Clone'"
+msgstr ""
+
+#: admin/views/settings.php:27
+msgid "Select content you want to be copied:"
+msgstr ""
+
+#: cloner.php:125
+msgid ""
+"Cloner has been successfully installed, it can be configured from <a "
+"href=\"%s\">Settings &raquo; Cloner</a>"
+msgstr ""
+
+#: cloner.php:126
+msgid "Dismiss"
+msgstr ""
+
+#: copier/class.copier-attachment.php:95
+msgid "Wrong attachment specified"
+msgstr ""
+
+#: copier/class.copier-attachment.php:101
+msgid "Attachment ( ID= %d ) does not exist in the source blog"
+msgstr ""
+
+#: copier/class.copier-attachment.php:373
+msgid "Remote server did not respond for file: %s"
+msgstr ""
+
+#: copier/class.copier-attachment.php:379
+msgid "Remote server returned error response %1$d %2$s - %3$s"
+msgstr ""
+
+#: copier/class.copier-attachment.php:386
+msgid "Remote file is incorrect size"
+msgstr ""
+
+#: copier/class.copier-attachment.php:391
+msgid "Zero size file downloaded"
+msgstr ""
+
+#: copier/class.copier-attachment.php:397
+msgid "Remote file is too large, limit is %s"
+msgstr ""
+
+#: copier/class.copier-menus.php:20
+msgid "No Menus to Copy"
+msgstr ""
+
+#: copier/class.copier-menus.php:50 copier/class.copier-menus.php:67
+msgid "There was an error trying to copy the menu. ID: "
+msgstr ""
+
+#: copier/class.copier-post-types.php:22
+msgid "No Custom Post Types to copy"
+msgstr ""
+
+#: copier/class.copier-post-types.php:98
+msgid "No posts to copy"
+msgstr ""
+
+#: copier/class.copier-settings.php:68
+msgid "Error copying settings"
+msgstr ""
+
+#: copier/class.copier-tables.php:94
+msgid "Insertion Error: %s"
+msgstr ""
+
+#: copier/class.copier-tables.php:188
+msgid ""
+"Deletion Error: %1$s - The template was not applied. (New Blog Templates - "
+"While clearing %2$s)"
+msgstr ""
+
+#: copier/class.copier-terms.php:315 copier/class.copier-terms.php:533
+msgid "Invalid taxonomy"
+msgstr ""
+
+#: copier/class.copier-terms.php:330 copier/class.copier-terms.php:548
+msgid "Invalid term ID"
+msgstr ""
+
+#: copier/class.copier-terms.php:333 copier/class.copier-terms.php:551
+msgid "A name is required for this term"
+msgstr ""
+
+#: copier/class.copier-terms.php:339 copier/class.copier-terms.php:557
+msgid "Parent term does not exist."
+msgstr ""
+
+#: copier/class.copier-terms.php:394 copier/class.copier-terms.php:624
+msgid "A term with the name provided already exists with this parent."
+msgstr ""
+
+#: copier/class.copier-terms.php:397
+msgid "A term with the name provided already exists in this taxonomy."
+msgstr ""
+
+#: copier/class.copier-terms.php:423 copier/class.copier-terms.php:629
+#: copier/class.copier-terms.php:637 copier/class.copier-terms.php:667
+msgid "Could not insert term into the database"
+msgstr ""
+
+#: copier/class.copier-terms.php:622
+msgid "A term with the name and slug provided already exists with this parent."
+msgstr ""
+
+#: copier/class.copier-terms.php:642
+msgid "A term with the name and slug provided already exists."
+msgstr ""
+
+#: copier/copier.php:339
+msgid "Error getting option"
+msgstr ""
+
+#: copier/copier.php:369
+msgid "Process Finished"
+msgstr ""
+
+#: copier/copier.php:390
+msgid "No attachments to copy"
+msgstr ""
+
+#: copier/copier.php:426
+msgid "No menus to copy"
+msgstr ""
+
+#: copier/copier.php:461
+msgid "Error getting class (%s)"
+msgstr ""
+
+#: copier/copier.php:494
+msgid "Custom Post Types Copied"
+msgstr ""
+
+#: copier/copier.php:496 copier/copier.php:519 copier/copier.php:522
+msgid "%s Copied"
+msgstr ""
+
+#: copier/copier.php:499
+msgid "%s Menu Copied"
+msgstr ""
+
+#: copier/copier.php:617
+msgid "We're setting up your new blog. Please wait..."
+msgstr ""
+
+#: copier/copier.php:643
+msgid "New blog Setup"
+msgstr ""
+
+#: copier/copier.php:673
+msgid ""
+"Please, set WP_DEBUG and WP_DEBUG_DISPLAY to false if you want this screen "
+"to work automatically instead of manually"
+msgstr ""
+
+#: copier/copier.php:676
+msgid ""
+"XDebug is activated, turn it off if you want this screen to work "
+"automatically instead of manually"
+msgstr ""
+
+#: copier/copier.php:678 copier/copier.php:684
+msgid "Redirecting to dashboard..."
+msgstr ""
+
+#: copier/copier.php:686
+msgid "Start"
+msgstr ""
+
+#: copier/copier.php:688
+msgid "Next step"
+msgstr ""
+
+#: copier/copier.php:690
+msgid "Return to dashboard"
+msgstr ""
+
+#: copier/copier.php:735
+msgid "An error has occured"
+msgstr ""
+
+#: copier/copier.php:788 copier/copier.php:792
+msgid "Security Error"
+msgstr ""
+
+#: helpers/settings.php:66
+msgid "Posts"
+msgstr ""
+
+#: helpers/settings.php:67
+msgid "Pages"
+msgstr ""
+
+#: helpers/settings.php:68
+msgid "Custom Post Types"
+msgstr ""
+
+#: helpers/settings.php:69
+msgid "Terms"
+msgstr ""
+
+#: helpers/settings.php:70
+msgid "Menus"
+msgstr ""
+
+#: helpers/settings.php:71
+msgid "Users"
+msgstr ""
+
+#: helpers/settings.php:72
+msgid "Comments"
+msgstr ""
+
+#: helpers/settings.php:73
+msgid "Attachments"
+msgstr ""
+
+#: helpers/settings.php:74
+msgid "Custom tables"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://premium.wpmudev.org/project/cloner"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Clone sites in a network installation"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPMU DEV"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://premium.wpmudev.org/"
+msgstr ""
