@@ -1,7 +1,3 @@
-[submodule "copier"]
-	path = copier
-	url = git@bitbucket.org:incsub/content-copier-stub.git
-	branch = master
 [submodule "externals"]
 	path = externals
 	url = git@bitbucket.org:incsub/wpmudev-dashboard-notification.git
