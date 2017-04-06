@@ -23,7 +23,6 @@ function cloner_autocomplete_site() {
 
 	$wild = '%';
 	if ( false !== strpos( $s, '*' ) ) {
-		$wild = '%';
 		$s = trim( $s, '*' );
 	}
 	if ( is_numeric( $s ) ) {

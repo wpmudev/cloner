@@ -77,7 +77,9 @@ if ( ! function_exists( 'copier_set_copier_args' ) ) {
 
         if ( empty( $args ) ) {
             // We are not using custom arguments, let's copy everything
+            //Tabls first
             $to_copy = array(
+                'tables' => array( 'tables' => wp_list_pluck( copier_get_additional_tables( $source_blog_id ), 'prefix.name' ) ),
                 'settings' => array(),
                 'widgets' => array(),
                 'posts' => array(),
@@ -87,12 +89,26 @@ if ( ! function_exists( 'copier_set_copier_args' ) ) {
                 'menus' => array(),
                 'users' => array(),
                 'comments' => array(),
-                'attachment' => array(),
-                'tables' => array( 'tables' => wp_list_pluck( copier_get_additional_tables( $source_blog_id ), 'prefix.name' ) )
+                'attachment' => array()
+                
             );
             $option['to_copy'] = $to_copy;
         }
         else {
+            // Additional tables
+            // Tables need to be set first before anything else
+            $tables_args = array();
+            if ( in_array( 'settings', $args['to_copy'] ) ) {
+                $option['to_copy']['widgets'] = array();
+                $tables_args['create_tables'] = true;
+                $option['to_copy']['tables'] = $tables_args;
+            }
+
+            if ( isset( $args['additional_tables'] ) && is_array( $args['additional_tables'] ) ) {
+                $tables_args['tables'] = $args['additional_tables'];
+                $option['to_copy']['tables'] = $tables_args;
+            }
+            
             foreach( $args['to_copy'] as $value ) {
                 $to_copy_args = array();
 
@@ -122,18 +138,7 @@ if ( ! function_exists( 'copier_set_copier_args' ) ) {
             if ( array_key_exists( 'posts', $option['to_copy'] ) || array_key_exists( 'pages', $option['to_copy'] ) )
                 $option['to_copy']['comments'] = array();
 
-            // Additional tables
-            $tables_args = array();
-            if ( in_array( 'settings', $args['to_copy'] ) ) {
-                $option['to_copy']['widgets'] = array();
-                $tables_args['create_tables'] = true;
-                $option['to_copy']['tables'] = $tables_args;
-            }
-
-            if ( isset( $args['additional_tables'] ) && is_array( $args['additional_tables'] ) ) {
-                $tables_args['tables'] = $args['additional_tables'];
-                $option['to_copy']['tables'] = $tables_args;
-            }
+            
         }
 
         if ( isset( $option['to_copy']['attachment'] ) ) {
