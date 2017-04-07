@@ -64,7 +64,35 @@ if ( ! function_exists( 'copier_woocommerce_order_status' ) ) {
 			'wc-completed',
 			'wc-cancelled',
 			'wc-refunded',
-			'wc-failed'
+			'wc-failed',
+			'wc-expired'
+		) );
+
+		return $args;
+	}
+}
+
+
+if ( ! function_exists( 'copier_woocommerce_follow_up_email_status' ) ) {
+	add_filter( 'wpmudev_copier_get_source_posts_args', 'copier_woocommerce_follow_up_email_status' );
+	/**
+	 * Add WooCommerce Follow Up Email statuses to get_posts arguments so they are cloned too.
+	 *
+	 * @param Array $args
+	 *
+	 * @return Array
+	 */
+	function copier_woocommerce_follow_up_email_status( $args ) {
+		if ( ! function_exists( 'WC' ) )
+			return $args;
+
+		if ( ! in_array( 'follow_up_email', $args['post_type'] ) )
+			return $args;
+
+		$args['post_status'] = array_merge( $args['post_status'], array(
+			'fue-active', 
+			'fue-inactive', 
+			'fue-archived'
 		) );
 
 		return $args;

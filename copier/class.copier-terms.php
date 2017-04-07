@@ -47,13 +47,14 @@ if ( ! class_exists( 'Site_Copier_Terms' ) ) {
 			$exclude_post_types = '("' . implode( '","', array( 'nav_menu_item' ) ) . '")';
 			$post_types = $wpdb->get_col( "SELECT DISTINCT post_type FROM $wpdb->posts WHERE post_type NOT IN $exclude_post_types" );
 
-			$source_posts_ids = get_posts( array(
+			//Filter with our custom post types
+			$source_posts_ids = get_posts( apply_filters( 'wpmudev_copier_get_source_posts_args', array(
 				'ignore_sticky_posts' => true,
 				'posts_per_page' => -1,
 				'post_type' => $post_types,
 				'fields' => 'ids',
 				'post_status' => array( 'publish', 'pending', 'draft', 'future', 'private', 'inherit' ),
-			) );
+			) ) );
 
 			$_taxonomies = $wpdb->get_col( "SELECT DISTINCT taxonomy FROM $wpdb->term_taxonomy" );
 	        $taxonomies = array();
