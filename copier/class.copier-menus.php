@@ -7,13 +7,25 @@ if ( ! class_exists( 'Site_Copier_Menus' ) ) {
 
     class Site_Copier_Menus extends Site_Copier {
 
+        private static $origin_menu_item_id;
+
         public function get_default_args() {
             return array(
                 'posts_mapping' => array(),
                 'menu_id' => false,
             );
         }
-        
+
+        public function change_insert_post_ID( $data, $postarr ) {
+            if ( !empty( self::$origin_menu_item_id ) && 'nav_menu_item' === $data['post_type'] ) {
+                $data['ID'] = self::$origin_menu_item_id;
+            }
+
+            return $data;
+        }
+
+
+
         public function copy() {
 
             if ( $this->args['menu_id'] === false )
@@ -66,8 +78,10 @@ if ( ! class_exists( 'Site_Copier_Menus' ) ) {
             if ( ! $new_menu_id || is_wp_error( $new_menu_id ) )
                 return new WP_Error( 'insert_menu_error', sprintf( __( 'There was an error trying to copy the menu. ID: ', WPMUDEV_COPIER_LANG_DOMAIN ), $this->args['menu_id'] ) );
 
+            add_filter( 'wp_insert_post_data', array( $this, 'change_insert_post_ID' ), 10 ,2 );
 
             foreach ( $source_menu->items as $menu_item ) {
+                self::$origin_menu_item_id = $menu_item->ID;
 
                 $new_item_args = array(
                     'menu-item-object' => $menu_item->object,
@@ -127,6 +141,7 @@ if ( ! class_exists( 'Site_Copier_Menus' ) ) {
                 $menu_items_remap[ $menu_item->ID ] = $new_menu_item_id;
             }
 
+            remove_filter( 'wp_insert_post_data', array( $this, 'change_insert_post_ID' ) );
 
             // Now remap the parents
             $items = wp_get_nav_menu_items( $new_menu_id, 'nav_menu' );
