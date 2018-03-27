@@ -24,8 +24,8 @@ if ( ! class_exists( 'Site_Copier_Pages' ) ) {
 			);
 		}
 
-		public function copy() {
-			$posts_mapping = parent::copy();
+		public function copy( $post_id = false ) {
+			$posts_mapping = parent::copy( $post_id );
 
 			// Remap the page on front and page for posts
 			$page_on_front = get_option( 'page_on_front' );
