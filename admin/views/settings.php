@@ -25,7 +25,7 @@
 		<div class="clear"></div>
 		
 		<h3><?php _e( 'Select content you want to be copied:', WPMUDEV_CLONER_LANG_DOMAIN ); ?></h3>
-		<ul id="cloner-content-list">
+		<ul id="cloner-content-list" class="cloner-list">
 			<?php $item_no = 1; ?>
 			<?php foreach ( $to_copy_labels as $slug => $label ): ?>
 				<li>
@@ -44,12 +44,38 @@
 		</ul>
 		<div class="clear"></div>
 
+		<hr />
+
+		<h3>
+			<?php _e( 'Replace urls and images', WPMUDEV_CLONER_LANG_DOMAIN ); ?>
+		</h3>
+
+		<ul id="cloner-replace-list" class="cloner-list">
+			
+			<li>
+				<label>
+					<input type="checkbox" id="to_replace_links" name="to_replace[href]" <?php checked( in_array( 'href', $to_replace ) ); ?> />
+					<?php _e( 'Replace links', WPMUDEV_CLONER_LANG_DOMAIN ); ?>
+				</label>
+			</li>
+			
+			<li>
+				<label>
+					<input type="checkbox" id="to_replace_images" name="to_replace[src]" <?php checked( in_array( 'src', $to_replace ) ); ?> />
+					<?php _e( 'Replace images', WPMUDEV_CLONER_LANG_DOMAIN ); ?>
+				</label>
+			</li>
+
+		</ul>
+
+		<div class="clear"></div>
+
 		<?php wp_nonce_field( 'wpmudev_cloner_settings' ); ?>
 		<?php submit_button(); ?>
 	</form>
 
 	<style>
-		#cloner-content-list li {
+		.cloner-list li {
 			display:block;
 			float:left;
 			width:25%;

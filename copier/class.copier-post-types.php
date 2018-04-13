@@ -51,9 +51,8 @@ if ( ! class_exists( 'Site_Copier_Post_Types' ) ) {
                 // If we pass the post IDs, clear_posts must be executed outside
                 $this->clear_posts();
             }
-            
-            switch_to_blog( $this->source_blog_id );
 
+            switch_to_blog( $this->source_blog_id );        
             /**
              * Filter the posts query variables.
              * 
@@ -150,7 +149,21 @@ if ( ! class_exists( 'Site_Copier_Post_Types' ) ) {
 
                 // If the user is set in arguments, let's use that one
                 if ( $this->user_id )
-                    $new_post['post_author'] = $this->user_id;
+                    $new_post['post_author'] = $this->user_id;                
+
+                /**
+                * Replace links and/or images urls in content
+                */
+                $types_to_replace =  apply_filters(
+                    'wpmudev_copier_types-to-replace',
+                    implode( '|', WPMUDEV_Cloner::get_settings( 'to_replace' ) ),
+                    $post,
+                    $this
+                );
+   
+                if ( ! empty( $types_to_replace ) ) {
+                    $new_post['post_content'] = $this->replace_content_urls( $new_post['post_content'], $types_to_replace );
+                }
 
                 /**
                  * Allows to change the cloned post before inserting it
@@ -213,6 +226,44 @@ if ( ! class_exists( 'Site_Copier_Post_Types' ) ) {
             }
 
             return $posts_mapping;
+
+        }
+
+        /**
+         * Replace urls in post content
+         * 
+         * @param String $content
+         * @param String $types
+         * @param String $original_url
+         * @param String $new_url
+         * @return String
+         */
+        public function replace_content_urls( $content = '', $types = false, $original_url = false, $new_url = false ) {
+
+            if ( ! $types ) {
+                return $content;
+            }
+
+            if ( ! $original_url ) {
+                $original_url = get_site_url( $this->source_blog_id );
+            }
+            
+            if ( ! $new_url ) {
+                $new_url = get_site_url( get_current_blog_id() );
+            }
+
+            $reg_exp = '/(' . $types . ')=("[^"]*")/';
+            preg_match_all( $reg_exp, $content, $matches );
+
+            foreach ( $matches as $match_key => $match_array ) {
+
+                foreach ( $match_array as $match ) {
+                    $replace_with = str_replace( $original_url, $new_url, $match );
+                    $content = str_replace( $match, $replace_with, $content );
+                }
+            }
+
+            return $content;
 
         }
 

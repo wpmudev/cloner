@@ -100,6 +100,10 @@ class WPMUDEV_Cloner_Admin_Settings {
 			$updated = true;
 
 		extract( $settings );
+		
+		if( ! isset( $to_replace ) ){
+			$to_replace = array();
+		}
 
 		include_once( 'views/settings.php' );
 	}
@@ -140,6 +144,7 @@ class WPMUDEV_Cloner_Admin_Settings {
 
 		$to_copy = array_keys( $_POST['to_copy'] );
 		$settings['to_copy'] = $to_copy;
+		$settings['to_replace'] = ( isset( $_POST['to_replace'] ) ) ? array_keys( $_POST['to_replace'] ) : array();
 
 		wpmudev_cloner_update_settings( $settings );
 
