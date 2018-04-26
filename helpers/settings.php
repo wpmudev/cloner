@@ -56,7 +56,8 @@ function wpmudev_cloner_get_default_settings() {
 			'comments',
 			'attachment',
 			'tables'
-		)
+		),
+		'to_replace' => array() // Let member decide if he needs to replace urls
 	);
 }
 
