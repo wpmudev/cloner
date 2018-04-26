@@ -149,7 +149,7 @@ class WPMUDEV_Cloner {
 
 		$to_copy = $option['to_copy'];
 		foreach ( $to_copy as $to_copy_option => $value ) {
-			if ( ! in_array( $to_copy_option, $settings['to_copy'] ) && $to_copy_option != 'widgets' )
+			if ( ! in_array( $to_copy_option, $settings['to_copy'] ) && $to_copy_option != 'widgets' && $to_copy_option != 'nav_menu_item' )
 				unset( $option['to_copy'][ $to_copy_option ] );
 		}
 
