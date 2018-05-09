@@ -17,6 +17,9 @@ if ( ! class_exists( 'Site_Copier_Post_Types' ) ) {
          * @return array
          */
         public function copy( $post_id = false ) {
+
+            $settings = wpmudev_cloner_get_settings();
+
             if ( $this->type == false ) {
                 $this->log( 'class.copier-post-types. No Custom Post Types to copy' );
                 return new WP_Error( 'wrong_post_type', __( 'No Custom Post Types to copy', WPMUDEV_COPIER_LANG_DOMAIN ) );
@@ -156,7 +159,7 @@ if ( ! class_exists( 'Site_Copier_Post_Types' ) ) {
                 */
                 $types_to_replace =  apply_filters(
                     'wpmudev_copier_types-to-replace',
-                    implode( '|', WPMUDEV_Cloner::get_settings( 'to_replace' ) ),
+                    implode( '|', $settings['to_replace'] ),
                     $post,
                     $this
                 );
