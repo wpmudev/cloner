@@ -1,14 +1,14 @@
-# Copyright (C) 2016 WPMU DEV
+# Copyright (C) 2018 WPMU DEV
 # This file is distributed under the same license as the Cloner package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Cloner 1.7.6\n"
+"Project-Id-Version: Cloner 1.8.0-beta-2\n"
 "Report-Msgid-Bugs-To: https://wpmudev.org\n"
-"POT-Creation-Date: 2016-12-12 11:25:19+00:00\n"
+"POT-Creation-Date: 2018-05-09 19:51:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 0.5.4\n"
@@ -18,7 +18,7 @@ msgid "Clone"
 msgstr ""
 
 #: admin/cloner-admin-clone-site.php:101 admin/cloner-admin-clone-site.php:102
-#: admin/views/clone-site.php:2 admin/views/clone-site.php:29 cloner.php:201
+#: admin/views/clone-site.php:2 admin/views/clone-site.php:29 cloner.php:202
 msgid "Clone Site"
 msgstr ""
 
@@ -50,29 +50,29 @@ msgstr ""
 msgid "The blog that you are trying to copy does not exist"
 msgstr ""
 
-#: admin/cloner-admin-clone-site.php:256 integration/integration.php:34
+#: admin/cloner-admin-clone-site.php:257 integration/integration.php:34
 #: integration/integration.php:40
 msgid "Please, insert a site name"
 msgstr ""
 
-#: admin/cloner-admin-clone-site.php:265 integration/integration.php:47
+#: admin/cloner-admin-clone-site.php:266 integration/integration.php:47
 #: integration/integration.php:56
 msgid "Missing or invalid site address."
 msgstr ""
 
-#: admin/cloner-admin-clone-site.php:272 integration/integration.php:74
+#: admin/cloner-admin-clone-site.php:273 integration/integration.php:74
 msgid "The blog already exists"
 msgstr ""
 
-#: admin/cloner-admin-clone-site.php:315 admin/cloner-admin-clone-site.php:327
+#: admin/cloner-admin-clone-site.php:316 admin/cloner-admin-clone-site.php:328
 msgid "The site you are trying to replace does not exist"
 msgstr ""
 
-#: admin/cloner-admin-clone-site.php:320
+#: admin/cloner-admin-clone-site.php:321
 msgid "You cannot copy a blog to itself"
 msgstr ""
 
-#: admin/cloner-admin-clone-site.php:386
+#: admin/cloner-admin-clone-site.php:387
 msgid "Unknown error"
 msgstr ""
 
@@ -84,11 +84,11 @@ msgstr ""
 msgid "Cloner"
 msgstr ""
 
-#: admin/cloner-admin-settings.php:118 helpers/settings.php:65
+#: admin/cloner-admin-settings.php:122 helpers/settings.php:66
 msgid "Settings"
 msgstr ""
 
-#: admin/cloner-admin-settings.php:135
+#: admin/cloner-admin-settings.php:139
 msgid "You need to check at least one option"
 msgstr ""
 
@@ -124,11 +124,11 @@ msgid ""
 "and can’t be undone, so please be careful. "
 msgstr ""
 
-#: admin/views/confirmation.php:66
+#: admin/views/confirmation.php:68
 msgid "Continue"
 msgstr ""
 
-#: admin/views/confirmation.php:67
+#: admin/views/confirmation.php:69
 msgid "No, please I want to go back"
 msgstr ""
 
@@ -222,13 +222,25 @@ msgstr ""
 msgid "Select content you want to be copied:"
 msgstr ""
 
-#: cloner.php:125
+#: admin/views/settings.php:50
+msgid "Replace urls and images"
+msgstr ""
+
+#: admin/views/settings.php:58
+msgid "Replace links"
+msgstr ""
+
+#: admin/views/settings.php:65
+msgid "Replace images"
+msgstr ""
+
+#: cloner.php:126
 msgid ""
 "Cloner has been successfully installed, it can be configured from <a "
 "href=\"%s\">Settings &raquo; Cloner</a>"
 msgstr ""
 
-#: cloner.php:126
+#: cloner.php:127
 msgid "Dismiss"
 msgstr ""
 
@@ -260,19 +272,19 @@ msgstr ""
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: copier/class.copier-menus.php:20
+#: copier/class.copier-menus.php:32
 msgid "No Menus to Copy"
 msgstr ""
 
-#: copier/class.copier-menus.php:50 copier/class.copier-menus.php:67
+#: copier/class.copier-menus.php:62 copier/class.copier-menus.php:79
 msgid "There was an error trying to copy the menu. ID: "
 msgstr ""
 
-#: copier/class.copier-post-types.php:22
+#: copier/class.copier-post-types.php:25
 msgid "No Custom Post Types to copy"
 msgstr ""
 
-#: copier/class.copier-post-types.php:98
+#: copier/class.copier-post-types.php:100
 msgid "No posts to copy"
 msgstr ""
 
@@ -290,152 +302,152 @@ msgid ""
 "While clearing %2$s)"
 msgstr ""
 
-#: copier/class.copier-terms.php:315 copier/class.copier-terms.php:533
+#: copier/class.copier-terms.php:316 copier/class.copier-terms.php:552
 msgid "Invalid taxonomy"
 msgstr ""
 
-#: copier/class.copier-terms.php:330 copier/class.copier-terms.php:548
+#: copier/class.copier-terms.php:331 copier/class.copier-terms.php:567
 msgid "Invalid term ID"
 msgstr ""
 
-#: copier/class.copier-terms.php:333 copier/class.copier-terms.php:551
+#: copier/class.copier-terms.php:334 copier/class.copier-terms.php:570
 msgid "A name is required for this term"
 msgstr ""
 
-#: copier/class.copier-terms.php:339 copier/class.copier-terms.php:557
+#: copier/class.copier-terms.php:340 copier/class.copier-terms.php:576
 msgid "Parent term does not exist."
 msgstr ""
 
-#: copier/class.copier-terms.php:394 copier/class.copier-terms.php:624
+#: copier/class.copier-terms.php:395 copier/class.copier-terms.php:643
 msgid "A term with the name provided already exists with this parent."
 msgstr ""
 
-#: copier/class.copier-terms.php:397
+#: copier/class.copier-terms.php:398
 msgid "A term with the name provided already exists in this taxonomy."
 msgstr ""
 
-#: copier/class.copier-terms.php:423 copier/class.copier-terms.php:629
-#: copier/class.copier-terms.php:637 copier/class.copier-terms.php:667
+#: copier/class.copier-terms.php:424 copier/class.copier-terms.php:648
+#: copier/class.copier-terms.php:656 copier/class.copier-terms.php:686
 msgid "Could not insert term into the database"
 msgstr ""
 
-#: copier/class.copier-terms.php:622
+#: copier/class.copier-terms.php:641
 msgid "A term with the name and slug provided already exists with this parent."
 msgstr ""
 
-#: copier/class.copier-terms.php:642
+#: copier/class.copier-terms.php:661
 msgid "A term with the name and slug provided already exists."
 msgstr ""
 
-#: copier/copier.php:339
+#: copier/copier.php:346
 msgid "Error getting option"
 msgstr ""
 
-#: copier/copier.php:369
+#: copier/copier.php:376
 msgid "Process Finished"
 msgstr ""
 
-#: copier/copier.php:390
+#: copier/copier.php:397
 msgid "No attachments to copy"
 msgstr ""
 
-#: copier/copier.php:426
+#: copier/copier.php:433
 msgid "No menus to copy"
 msgstr ""
 
-#: copier/copier.php:461
+#: copier/copier.php:468
 msgid "Error getting class (%s)"
 msgstr ""
 
-#: copier/copier.php:494
+#: copier/copier.php:501
 msgid "Custom Post Types Copied"
 msgstr ""
 
-#: copier/copier.php:496 copier/copier.php:519 copier/copier.php:522
+#: copier/copier.php:503 copier/copier.php:526 copier/copier.php:529
 msgid "%s Copied"
 msgstr ""
 
-#: copier/copier.php:499
+#: copier/copier.php:506
 msgid "%s Menu Copied"
 msgstr ""
 
-#: copier/copier.php:617
+#: copier/copier.php:624
 msgid "We're setting up your new blog. Please wait..."
 msgstr ""
 
-#: copier/copier.php:643
+#: copier/copier.php:650
 msgid "New blog Setup"
 msgstr ""
 
-#: copier/copier.php:673
+#: copier/copier.php:680
 msgid ""
 "Please, set WP_DEBUG and WP_DEBUG_DISPLAY to false if you want this screen "
 "to work automatically instead of manually"
 msgstr ""
 
-#: copier/copier.php:676
+#: copier/copier.php:683
 msgid ""
 "XDebug is activated, turn it off if you want this screen to work "
 "automatically instead of manually"
 msgstr ""
 
-#: copier/copier.php:678 copier/copier.php:684
+#: copier/copier.php:685 copier/copier.php:691
 msgid "Redirecting to dashboard..."
 msgstr ""
 
-#: copier/copier.php:686
+#: copier/copier.php:693
 msgid "Start"
 msgstr ""
 
-#: copier/copier.php:688
+#: copier/copier.php:695
 msgid "Next step"
 msgstr ""
 
-#: copier/copier.php:690
+#: copier/copier.php:697
 msgid "Return to dashboard"
 msgstr ""
 
-#: copier/copier.php:735
+#: copier/copier.php:742
 msgid "An error has occured"
 msgstr ""
 
-#: copier/copier.php:788 copier/copier.php:792
+#: copier/copier.php:795 copier/copier.php:799
 msgid "Security Error"
 msgstr ""
 
-#: helpers/settings.php:66
+#: helpers/settings.php:67
 msgid "Posts"
 msgstr ""
 
-#: helpers/settings.php:67
+#: helpers/settings.php:68
 msgid "Pages"
 msgstr ""
 
-#: helpers/settings.php:68
+#: helpers/settings.php:69
 msgid "Custom Post Types"
 msgstr ""
 
-#: helpers/settings.php:69
+#: helpers/settings.php:70
 msgid "Terms"
 msgstr ""
 
-#: helpers/settings.php:70
+#: helpers/settings.php:71
 msgid "Menus"
 msgstr ""
 
-#: helpers/settings.php:71
+#: helpers/settings.php:72
 msgid "Users"
 msgstr ""
 
-#: helpers/settings.php:72
+#: helpers/settings.php:73
 msgid "Comments"
 msgstr ""
 
-#: helpers/settings.php:73
+#: helpers/settings.php:74
 msgid "Attachments"
 msgstr ""
 
-#: helpers/settings.php:74
+#: helpers/settings.php:75
 msgid "Custom tables"
 msgstr ""
 

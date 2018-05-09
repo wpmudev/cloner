@@ -240,6 +240,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		$new_blog_title = ! empty( $_REQUEST['replace_blog_title'] ) ? $_REQUEST['replace_blog_title'] : 0;
 
 		$args = array();
+		$additional_tables_selected = array();
 
 		if ( $blog_id === 1 ) {
 			$additional_tables_selected = empty( $_REQUEST['additional_tables'] ) ? array() : $_REQUEST['additional_tables'];
@@ -426,7 +427,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
             }
         }
 
-        $args['additional_tables'] = $additional_tables;
+        $args['additional_tables'] = $additional_tables_selected;
 
 		// Set everything needed to clone the site
 		$result = $this->pre_clone_actions( $blog_id, $new_domain, $new_path, $args );

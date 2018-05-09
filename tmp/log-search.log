@@ -1,11 +1,11 @@
 {
 	"numResults": 1,
-	"creationDate": "2016-12-12 11:25:17",
+	"creationDate": "2018-05-09 19:51:09",
 	"results": {
 		"cloner.php": [
 			{
 				"line": 8,
-				"match": "Version: 1.7.6"
+				"match": "Version: 1.8.0-beta-2"
 			}
 		]
 	}
