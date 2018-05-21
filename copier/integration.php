@@ -26,7 +26,8 @@ $files_list = apply_filters( 'copier_integration_files', array(
 	'cookie-notice',
 	'jetpack',
 	'ubermenu',
-	'revslider'
+	'revslider',
+	'marketpress'
 ) );
 
 foreach ( $files_list as $file ) {
