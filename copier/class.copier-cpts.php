@@ -69,6 +69,7 @@ if ( ! class_exists( 'Site_Copier_Posts' ) ) {
 				$wpdb->get_var("SHOW TABLES LIKE '{$hustle_modules_table}'") != $hustle_modules_table ||
 				$wpdb->get_var("SHOW TABLES LIKE '{$hustle_modules_meta_table}'") != $hustle_modules_meta_table
 			) {
+				restore_current_blog();
 				return;
 			}
 			restore_current_blog();
