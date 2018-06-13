@@ -452,6 +452,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 	 */
 	public function pre_clone_actions( $source_blog_id, $domain, $path, $args ) {
 		global $wpdb;
+		$network_id = get_current_network_id();
 
 		$defaults = array(
 		    'override' => false,
@@ -471,7 +472,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		$new_blog_id = $override;
 		if ( ! $override ) {
 			// Not overrriding, let's create an  empty blog
-			$new_blog_id = $this->create_empty_blog( $domain, $path );
+			$new_blog_id = $this->create_empty_blog( $domain, $path, $network_id );
 		}
 
 
