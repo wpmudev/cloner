@@ -472,7 +472,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		$new_blog_id = $override;
 		if ( ! $override ) {
 			// Not overrriding, let's create an  empty blog
-			$new_blog_id = $this->create_empty_blog( $domain, $path, $network_id );
+			$new_blog_id = $this->create_empty_blog( $domain, $path, $blog_title, $network_id );
 		}
 
 
@@ -495,7 +495,7 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		return $new_blog_id;
 	}
 
-	function create_empty_blog( $domain, $path, $site_id = 1 ) {
+	function create_empty_blog( $domain, $path, $blog_title, $site_id = 1 ) {
 		if ( empty($path) )
 			$path = '/';
 
@@ -506,13 +506,18 @@ class WPMUDEV_Cloner_Admin_Clone_Site {
 		// Need to back up wpdb table names, and create a new wp_blogs entry for new blog.
 		// Need to get blog_id from wp_blogs, and create new table names.
 		// Must restore table names at the end of function.
-
+        /*
 		if ( ! $blog_id = insert_blog($domain, $path, $site_id) )
 			return false;
 
 		switch_to_blog($blog_id);
 		install_blog($blog_id);
 		restore_current_blog();
+		*/
+		
+		if ( ! $blog_id = wpmu_create_blog( $domain, $path, $blog_title, get_current_user_id(), array(), $site_id ) ){
+			return false;
+		}
 
 		return $blog_id;
 	}
