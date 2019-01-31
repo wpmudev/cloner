@@ -24,7 +24,7 @@ add_filter( 'wpmudev_cloner_pre_clone_actions_switch_default', 'cloner_multi_dom
  * @return array|bool|WP_Error
  */
 function cloner_multi_domains_process_clone_site_form( $result, $selection, $blog_title_selection, $new_blog_title, $blog_id, $blog_details ) {
-    global $wpdb;
+    global $wpdb, $current_site;
     if ( $selection === 'create_md' ) {
         // Checking if the blog already exists
         // Sanitize the domain/subfolder
@@ -66,7 +66,7 @@ function cloner_multi_domains_process_clone_site_form( $result, $selection, $blo
         }
         else {
             $new_domain = $domain;
-            $new_path = '/' . $subdomain;
+            $new_path = $current_site->path . trailingslashit( $subdomain );
             $blog_exists = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->blogs WHERE domain LIKE %s AND path = %s", '%' . $new_domain . '%', $new_path . '/' ) );
         }
 
