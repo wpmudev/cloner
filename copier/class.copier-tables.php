@@ -39,6 +39,8 @@ if ( ! class_exists( 'Site_Copier_Tables' ) ) {
              */
             $all_source_tables = apply_filters( 'wpmudev_copier_copy_additional_tables', $all_source_tables );
 
+            $wpdb->query( 'SET foreign_key_checks = 0' );
+
             foreach ( $all_source_tables as $table ) {
                 // Copy content too?
                 $add = in_array( $table, $tables_to_copy );
@@ -100,6 +102,8 @@ if ( ! class_exists( 'Site_Copier_Tables' ) ) {
             }
 
             $wpdb->query("COMMIT;");
+            $wpdb->query( 'SET foreign_key_checks = 1' );
+            
             return true;
     	}
 
