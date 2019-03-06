@@ -54,6 +54,8 @@ if ( ! function_exists( 'copier_woocommerce_order_status' ) ) {
 		if ( ! function_exists( 'WC' ) )
 			return $args;
 
+		$args['post_type'] = ( ! is_array( $args['post_type'] ) ) ? array( $args['post_type'] ) : $args['post_type'];
+		
 		if ( ! in_array( 'shop_order', $args['post_type'] ) )
 			return $args;
 
@@ -85,6 +87,8 @@ if ( ! function_exists( 'copier_woocommerce_follow_up_email_status' ) ) {
 	function copier_woocommerce_follow_up_email_status( $args ) {
 		if ( ! function_exists( 'WC' ) )
 			return $args;
+
+		$args['post_type'] = ( ! is_array( $args['post_type'] ) ) ? array( $args['post_type'] ) : $args['post_type'];
 
 		if ( ! in_array( 'follow_up_email', $args['post_type'] ) )
 			return $args;
