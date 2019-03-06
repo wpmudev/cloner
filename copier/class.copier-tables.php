@@ -74,6 +74,8 @@ if ( ! class_exists( 'Site_Copier_Tables' ) ) {
 
                     if ( $create_script && preg_match( '/\(.*\)/s', $create_script, $match ) ) {
                         $table_body = $match[0];
+
+                        $wpdb->query( 'SET foreign_key_checks = 0' );
                         $wpdb->query( "CREATE TABLE IF NOT EXISTS {$new_table} {$table_body}" );
 
                         if ( $add ) {
@@ -87,6 +89,8 @@ if ( ! class_exists( 'Site_Copier_Tables' ) ) {
                                 $wpdb->query( "INSERT INTO {$new_table} SELECT * FROM {$table}" );
                             }
                         }
+
+                        $wpdb->query( 'SET foreign_key_checks = 0' );
 
                     }
 
