@@ -405,15 +405,17 @@ if ( ! class_exists( 'Site_Copier_Attachment' ) ) {
             $options = array();
             $options['redirection'] = 5;
 
-            if ( false == $file_path )
+            if ( false == $file_path ) {
                 $options['method'] = 'HEAD';
-            else
+            }else {
                 $options['method'] = 'GET';
+            }
 
             $response = wp_safe_remote_request( $url, $options );
 
-            if ( is_wp_error( $response ) )
+            if ( is_wp_error( $response ) ) {
                 return false;
+            }
 
             $headers = wp_remote_retrieve_headers( $response );
             $headers['response'] = wp_remote_retrieve_response_code( $response );
@@ -423,13 +425,15 @@ if ( ! class_exists( 'Site_Copier_Attachment' ) ) {
                 return $this->wp_get_http( $headers['location'], $file_path, ++$red );
             }
 
-            if ( false == $file_path )
+            if ( false == $file_path ) {
                 return $headers;
+            }
 
             // GET request - write it to the supplied filename
             $out_fp = fopen($file_path, 'w');
-            if ( !$out_fp )
+            if ( !$out_fp ){
                 return $headers;
+            }
 
             fwrite( $out_fp,  wp_remote_retrieve_body( $response ) );
             fclose($out_fp);
