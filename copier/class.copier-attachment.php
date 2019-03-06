@@ -364,7 +364,7 @@ if ( ! class_exists( 'Site_Copier_Attachment' ) ) {
                 return new WP_Error( 'upload_dir_error', $upload['error'] );
 
             add_filter( 'http_request_args', array( $this, 'unset_verify_ssl_request' ), 999 );
-            $headers = wp_get_http( $url, $upload['file'] );
+            $headers = $this->wp_get_http( $url, $upload['file'] );
             remove_filter( 'http_request_args', array( $this, 'unset_verify_ssl_request' ), 999 );
 
             // request failed
@@ -398,6 +398,48 @@ if ( ! class_exists( 'Site_Copier_Attachment' ) ) {
             }
 
             return $upload;
+        }
+
+        function wp_get_http( $url, $file_path = false ) {
+
+            $options = array();
+            $options['redirection'] = 5;
+
+            if ( false == $file_path ) {
+                $options['method'] = 'HEAD';
+            }else {
+                $options['method'] = 'GET';
+            }
+
+            $response = wp_safe_remote_request( $url, $options );
+
+            if ( is_wp_error( $response ) ) {
+                return false;
+            }
+
+            $headers = wp_remote_retrieve_headers( $response );
+            $headers['response'] = wp_remote_retrieve_response_code( $response );
+
+            // WP_HTTP no longer follows redirects for HEAD requests.
+            if ( 'HEAD' == $options['method'] && in_array($headers['response'], array(301, 302)) && isset( $headers['location'] ) ) {
+                return $this->wp_get_http( $headers['location'], $file_path, ++$red );
+            }
+
+            if ( false == $file_path ) {
+                return $headers;
+            }
+
+            // GET request - write it to the supplied filename
+            $out_fp = fopen($file_path, 'w');
+            if ( !$out_fp ){
+                return $headers;
+            }
+
+            fwrite( $out_fp,  wp_remote_retrieve_body( $response ) );
+            fclose($out_fp);
+            clearstatcache();
+
+            return $headers;
         }
 
         public function unset_verify_ssl_request( $args ) {
