@@ -90,7 +90,7 @@ if ( ! class_exists( 'Site_Copier_Tables' ) ) {
                             }
                         }
 
-                        $wpdb->query( 'SET foreign_key_checks = 0' );
+                        $wpdb->query( 'SET foreign_key_checks = 1' );
 
                     }
 
