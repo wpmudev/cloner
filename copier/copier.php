@@ -84,7 +84,7 @@ if ( ! function_exists( 'copier_set_copier_args' ) ) {
                 'widgets' => array(),
                 'posts' => array(),
                 'pages' => array(),
-                'nav_menu_item' => array(),
+                //'nav_menu_item' => array(),
                 'cpts' => array(),
                 'terms' => array( 'update_relationships' => true ),
                 'menus' => array(),
