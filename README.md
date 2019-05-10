@@ -45,3 +45,37 @@ Work behind the scenes and remove the stress associated with developing and desi
 ![prosites](https://premium.wpmudev.org/wp-content/uploads/2014/08/prosites.png)
 
  Build your own WordPress.com or Edublogs with Pro Sites.
+ 
+ 
+## Usage
+
+### To Get Started
+
+Start by reading [Installing plugins](https://premium.wpmudev.org/project/wpmu-manual/installing-regular-plugins-on-wpmu/) section in our comprehensive [WordPress and WordPress Multisite Manual](https://premium.wpmudev.org/manuals/) if you are new to WordPress.
+
+### Configuring the Settings
+
+Once installed and network-activated, you’ll see a new menu item in your network admin: Settings > Cloner. 
+
+![Cloner Settings - Network Admin](https://premium.wpmudev.org/wp-content/uploads/2014/08/Cloner-Settings-Network-Admin.png)
+
+ Click the _Settings > Cloner _sub-menu item to configure the settings. ![Cloner - content types to copy](https://premium.wpmudev.org/wp-content/uploads/2014/08/Cloner-content-types.png)
+
+ Select all the items you'd like to be copied with the clone process and click the _Save Changes_ button. Next, click on the _Sites_ menu item to go to the sites list in your network admin. ![Network admin Sites list](https://premium.wpmudev.org/wp-content/uploads/2014/08/Cloner-Sites.png)
+
+ Locate a sub-site in the list that you'd like to copy, hover your mouse over the site's name and click _Clone_ to clone the site. ![Cloner - Sites list - clone option](https://premium.wpmudev.org/wp-content/uploads/2014/08/Cloner-Sites-list-options.png)
+
+ You'll now be taken to the Clone Site page where you have a few cloning options. ![Cloner - Clone Site](https://premium.wpmudev.org/wp-content/uploads/2014/08/Cloner-Clone-Site.png)
+
+1\. Enter the name for a new site to create  
+
+2\. Or enter the name of site to replace  
+
+3\. Click the Clone Site button
+
+
+ _Create a new site_ lets you create a new site that will be a duplicate of the selected site. _Replace existing site_ lets you overwrite an existing site with a copy of the selected site. Begin entering the name of an existing site and an auto-complete list of sites will show, from which you can select one. Press the _Clone Site_ button to commence the cloning process. If you've selected to replace an existing site, you'll see a confirmation page asking if you want to proceed. Press the Continue button to proceed. Once the clone process is started, you'll see a status page notifying you of the progress. 
+
+![Cloner - setting up your new blog](https://premium.wpmudev.org/wp-content/uploads/2014/08/Cloner-setting-up-your-new-blog.png)
+
+ Once the process is completed, you'll automatically be taken to the cloned site's dashboard. That's all there is to it!
