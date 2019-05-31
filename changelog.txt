@@ -9,6 +9,21 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+
+1.8.0 - 2019-05-30
+----------------------------------------------------------------------
+- Fix: Pages not clonned with php7.2
+- Fix: Cloner not cloning cpts
+- Fix: Cloner runs when re-visiting source site
+- Fix: Clone MarketPress orders
+- Fix: DB Error Message 'options' table not exists
+- New: Replace link and image urls in posts content
+- Fix: Multi Domains integration in sub directory installs
+- Fix: Foreign Bey constraint DB error
+- Fix: WooCommerce integration warnings
+- Fix: Deprecated function wp_get_http
+- Fix: Menus not cloned
+
 1.7.7 - 2016-12-19
 ----------------------------------------------------------------------
 - Fix: Warnings when copying tables
