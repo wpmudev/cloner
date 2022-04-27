@@ -9,7 +9,7 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.5",
+    "grunt": "~1.5.2",
     "grunt-checktextdomain": "^0.1.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compress": "~0.8.0",
