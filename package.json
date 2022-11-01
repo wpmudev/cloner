@@ -9,10 +9,10 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.5",
+    "grunt": "~1.5.3",
     "grunt-checktextdomain": "^0.1.1",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-compress": "~0.8.0",
+    "grunt-contrib-compress": "~2.0.0",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.1",
@@ -22,8 +22,8 @@
     "grunt-phpunit": "^0.3.6",
     "grunt-potomo": "~2.1.0",
     "grunt-search": "^0.1.8",
-    "grunt-wp-i18n": "~0.5.0",
-    "load-grunt-tasks": "~0.2.0"
+    "grunt-wp-i18n": "~1.0.3",
+    "load-grunt-tasks": "~5.1.0"
   },
   "author": "WPMU DEV",
   "license": "GPLv2"
