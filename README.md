@@ -51,7 +51,7 @@ Work behind the scenes and remove the stress associated with developing and desi
 
 ### To Get Started
 
-Start by reading [Installing plugins](https://premium.wpmudev.org/project/wpmu-manual/installing-regular-plugins-on-wpmu/) section in our comprehensive [WordPress and WordPress Multisite Manual](https://premium.wpmudev.org/manuals/) if you are new to WordPress.
+Start by reading [Installing plugins](https://wpmudev.com/docs/using-wordpress/installing-wordpress-plugins/) section in our comprehensive [WordPress and WordPress Multisite Manual](https://premium.wpmudev.org/manuals/) if you are new to WordPress.
 
 ### Configuring the Settings
 
